@@ -1,1 +1,1 @@
-python "G:/ACM/paste.py"
+python "G:/ACM/Paste.py"
