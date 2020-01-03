@@ -50,8 +50,8 @@ int main(){
 	cout.tie(0);
 	//freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 	//freopen("C:\\Users\\LENOVO\\Desktop\\out.txt","w",stdout);
-	ifstream cin("C:\\Users\\LENOVO\\Desktop\\out.txt");
-	ofstream cout("C:\\Users\\LENOVO\\Desktop\\in.txt");
+	//ifstream cin("C:\\Users\\LENOVO\\Desktop\\out.txt");
+	//ofstream cout("C:\\Users\\LENOVO\\Desktop\\in.txt");
 	string s;
 	cin>>s;
 	cout<<s<<endl;
