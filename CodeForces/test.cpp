@@ -54,11 +54,11 @@ int main(){
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	add_edge = [&](int a){
-		cout<<a<<endl;
+	auto f = [](int u,int v){
+		cout<<u<<v<<endl;
 	};
-	add_edge(a);
+	int a,b;cin>>a>>b;
+	f(a,b);
 	return 0;
 }
 

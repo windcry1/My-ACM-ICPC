@@ -1,0 +1,1 @@
+python "G:/ACM/paste.py"
