@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	int i,j,n,t,weight[201],value[201],dp[201][201],max[201],temp;
+	while(scanf("%d%d",&n,&t)!=EOF)
+	{
+		memset(dp,0,sizeof(dp));
+	for(i=1;i<=n;i++)
+	{
+		scanf("%d",&value[i]);
+	}
+	for(j=1;j<=n;j++)
+	{
+		scanf("%d",&weight[j]);
+	}
+	for(i=1;i<=t;i++)
+	{
+		max[i]=3000;
+	}
+	for(i=1;i<=n;i++) 
+	{
+        for(j=1;j<=t;j++) 
+		{
+            if(weight[i]>j)
+			{
+                dp[i][j]=dp[i-1][j];
+            }
+            else if(value[i]>max[j])
+            {
+            	dp[i][j]=dp[i-1][j];
+			}
+            else
+			{
+				if(dp[i-1][j]>dp[i-1][j-weight[i]]+value[i])
+					dp[i][j]=dp[i-1][j];
+				else
+				{
+					dp[i][j]=dp[i-1][j-weight[i]]+value[i];
+					if(value[i]<max[j])
+						max[j]=value[i];
+				}
+            }
+        }
+    }
+    printf("%d\n",dp[n][t]);
+	}
+	return 0;
+}

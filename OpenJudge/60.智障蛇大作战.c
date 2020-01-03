@@ -1,0 +1,52 @@
+#include<stdio.h>
+int main()
+{
+	long long t,l,i,j,n,a[10001],temp,time;
+	scanf("%lld",&t);
+	while(t--)
+	{
+		time=0;
+		scanf("%lld%lld",&l,&n);
+		for(i=0;i<n;i++)
+		{
+			scanf("%lld",&a[i]);
+		}
+		for(i=0;i<n-1;i++)
+		{
+			for(j=0;j<n-1-i;j++)
+			{
+				if(a[j]>a[j+1])
+				{
+					temp=a[j];
+					a[j]=a[j+1];
+					a[j+1]=temp;
+				}
+			}
+		}
+		for(i=0;i<n;i++)
+		{
+			if(l>a[i])
+			{
+				time++;
+				l+=2;
+			}
+			else
+			{
+				while(a[i]>=l)
+				{
+					a[i]-=l-1;
+					if(a[i]==l)
+					{
+						time++;
+						l++;
+					}
+					l++;
+					time++;
+				}
+				l++;
+			}
+		}
+		printf("%lld\n",time);
+	}
+	return 0;
+}

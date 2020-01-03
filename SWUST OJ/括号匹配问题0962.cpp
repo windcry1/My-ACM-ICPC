@@ -1,0 +1,84 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	int n,i,len,num,j,length;
+	char str[1001],a[1001];
+		memset(a,0,sizeof(a));
+		memset(str,0,sizeof(str));
+		scanf("%s",str);
+		len=strlen(str);
+		for(j=0;j<len;j++)
+		{
+		for(i=0;i<len;i++)
+		{
+			if(str[i]=='{'||str[i]=='('||str[i]==')'||str[i]=='['||str[i]==']'||str[i]=='}')
+			{
+				a[j]=str[i]; 
+				str[i]=0;
+				break;
+			}
+		}
+		}
+		length=strlen(a);
+		for(i=0;i<len;i++)
+		{
+			if(a[i]=='(')
+			{
+				for(j=i+1;j<len;j++)
+				{
+					if(a[j]==')')
+					{
+						a[j]='0';
+						a[i]='0';
+						break;
+					}
+					if(a[j]=='{'||a[j]=='}'||a[j]=='['||a[j]==']')
+						break; 
+				}
+			}
+		}
+		for(i=0;i<len;i++)
+		{
+			if(a[i]=='[')
+			{
+				for(j=i+1;j<len;j++)
+				{
+					if(a[j]==']')
+					{
+						a[j]='0';
+						a[i]='0';
+						break;
+					}
+					if(a[j]=='{'||a[j]=='}')
+						break; 
+				}
+			}
+		}
+		for(i=0;i<len;i++)
+		{
+			if(a[i]=='{')
+			{
+				for(j=i+1;j<len;j++)
+				{
+					if(a[j]=='}')
+					{
+						a[j]='0';
+						a[i]='0';
+						break;
+					}
+				}
+			}
+		}
+		num=0;
+		for(i=0;i<len;i++)
+		{
+			if(a[i]=='0')
+			num++;
+		}
+		if(num==length)
+			printf("YES\n");
+		else
+			printf("NO\n");
+	return 0;
+} 

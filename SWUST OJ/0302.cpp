@@ -1,0 +1,47 @@
+//Author:LanceYu
+#include<cstring>
+#include<cmath>
+#include<cstdio>
+#include<cctype>
+#include<cstdlib>
+#include<ctime>
+#include<vector>
+#include<iostream>
+#include<string>
+#include<queue>
+#include<set>
+#include<algorithm>
+#include<complex>
+#include<stack>
+#include<bitset>
+#include<iomanip>
+#define ll long long
+using namespace std;
+const double clf=1e-8;
+const int MMAX=0x7fffffff;
+const int INF=0xfffffff;
+const int mod=1e9+7;
+int a[30000001];
+int main()
+{
+ 	ios::sync_with_stdio(false);
+ 	//freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
+	//freopen("C:\\Users\\LENOVO\\Desktop\\out.txt","w",stdout);
+	int n;
+	for(int i=0;;i++)
+	{
+		cin>>a[i];
+		if(a[i]==0)
+		{
+			n=i;
+			break;
+		}
+	}
+	set<int> iset(a,a+n);
+	set<int>::iterator i;
+	for(i=iset.begin();i!=iset.end();i++)
+		cout<<*i<<" ";
+	cout<<endl;
+ 	return 0;
+}
+

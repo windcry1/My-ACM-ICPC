@@ -1,0 +1,178 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char a1[101],a2[101],b1[101],b2[101],str1[101],str2[101],c,r2[101],r1[101];
+	int lena1,lena2,lenb1,lenb2,len1,len2,i,j,max=0,max2=0,flag=-1;
+	scanf("%s%s",str1,str2);
+	memset(a1,0,sizeof(a1));
+	memset(a2,0,sizeof(a2));
+	memset(b1,0,sizeof(b1));
+	memset(b2,0,sizeof(b2));
+	memset(r2,0,sizeof(r2));
+	memset(r1,0,sizeof(r1)); 
+	len1=strlen(str1);
+	for(i=0;i<len1;i++)
+	{
+		c=str1[i];
+		if(c!='.')
+			a1[i]=c;
+		if(c=='.')
+			break;
+	}
+	//整数部分取出来 
+	lena1=strlen(a1); 
+	//b从1开始 
+	//b:小数部分
+	//a:整数部分 
+	for(j=i+1;j<len1;j++)
+	{
+		b1[j-i-1]=str1[j];
+	}//小数部分取出来
+	
+	//------------------------------------------------------------
+	
+	len2=strlen(str2);
+	for(i=0;i<len2;i++)
+	{
+		c=str2[i];
+		if(c!='.')
+			a2[i]=c;
+		if(c=='.')
+			break;
+	}
+	//整数部分取出来 
+	lena2=strlen(a2); 
+	//b从1开始 
+	//b:小数部分
+	//a:整数部分 
+	for(j=i+1;j<len2;j++)
+	{
+		b2[j-i-1]=str2[j];
+	}//小数部分取出来
+	
+	//---------------------------------------------------------------
+	
+	for(i=0;i<lena1/2;i++)
+	{
+		c=a1[i];
+		a1[i]=a1[lena1-i-1];
+		a1[lena1-i-1]=c; 
+	} 
+	//a1反向赋值 
+	for(i=0;i<lena2/2;i++)
+	{
+		c=a2[i];
+		a2[i]=a2[lena2-i-1];
+		a2[lena2-i-1]=c; 
+	}
+	//a2反向赋值 
+	
+	//---------------------------------------------------------------
+	
+	lena1=strlen(a1);
+	lena2=strlen(a2);
+	lenb1=strlen(b1);
+	lenb2=strlen(b2);
+	if(lenb1>lenb2)
+	{
+		max=lenb1;
+		flag=1;
+	}
+	else
+	{
+		max=lenb2;
+		flag=0;
+	}
+	//找到小数部分的最大长度
+	if(flag==1)
+	{
+		for(i=lenb2;i<max;i++)
+		{
+			b2[i]='0';
+		}
+	}
+	if(flag==0)
+	{
+		for(i=lenb1;i<max;i++)
+		{
+			b1[i]='0';
+		}
+	}
+	//补齐小数部分
+	
+	//---------------------------------------------------------------------- 
+	 
+	for(i=max-1;i>0;i--)
+	{
+		if(b1[i]+b2[i]+r2[i]-'0'-'0'<10)
+			r2[i]+=b1[i]+b2[i]-'0';
+		else
+		{
+			r2[i]+=b1[i]+b2[i]-10-'0';
+			r2[i-1]++;
+		}
+	}
+	if(b1[0]+b2[0]+r2[0]-'0'-'0'<10)
+		r2[0]+=b1[0]+b2[0]-'0';
+	else
+	{
+		r2[0]+=b1[0]+b2[0]-10-'0';
+		r1[0]++;
+	}
+	//小数部分加法运算 
+	//puts(r2);//检验 
+	for(i=max-1;i>=0;i--)
+	{
+		if(r2[i]=='0')
+			r2[i]='\0';
+		if(r2[i]!=0)
+			break;
+	} 
+	//去小数部分多余0
+	//puts(r2); //检验 
+	
+	
+	if(lena1>lena2)
+	{
+		max=lena1;
+		flag=1;
+	}
+	else
+	{
+		max=lena2;
+		flag=0;
+	}
+	if(flag==1)
+	{
+		for(i=lena2;i<max;i++)
+		{
+			a2[i]='0';
+		}
+	}
+	if(flag==0)
+	{
+		for(i=lena1;i<max;i++)
+		{
+			a1[i]='0';
+		}
+	}
+
+	for(i=0;i<max;i++)
+	{
+		if(a1[i]+a2[i]+r1[i]-'0'-'0'<10)
+			r1[i]+=a1[i]+a2[i]-'0';
+		else
+		{
+			r1[i]+=a1[i]+a2[i]-10-'0';
+			r1[i+1]++;
+		}
+	}
+	if(r1[i]!='\0')
+		r1[i]+=48;
+	for(i=strlen(r1)-1;i>=0;i--)
+		printf("%c",r1[i]);
+	printf(".");
+	printf("%s",r2);
+	return 0;
+} 

@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+int main()
+{
+	int n,L,R,a[200001],i,j,flag=0;
+	scanf("%d",&n);
+	memset(a,0,sizeof(a));
+	while(n--)
+	{
+		scanf("%d%d",&L,&R);
+		for(i=L;i<=R;i++)
+		{
+			a[i]=1;
+		}
+	}
+	for(i=1;i<200001;i++)
+	{
+		if(a[i]==1)
+		break;
+	}
+	for(j=i;j<200001;j++)
+	{
+		//printf("%d\n",a[j]);
+		if(a[j]==0)
+		{
+		flag=1;
+		}
+		if(flag==1)
+		{
+			if(a[j]==1)
+			{
+			printf("NO!\n");
+			break;
+			}
+		}
+	}
+	if(j>=200001)
+	printf("Yes!\n");
+	return 0;
+}
