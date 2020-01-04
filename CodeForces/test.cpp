@@ -1,65 +1,48 @@
-/*************************************************************************
->>> Author: WindCry1
->>> Mail: lanceyu120@gmail.com
->>> Website: https://windcry1.com
->>> Date: 12/30/2019 11:03:37 PM
-*************************************************************************/
-//#pragma GCC optimize(3)//ACWing, CCF
-#include <cstring>
-#include <cmath>
-#include <cstdio>
-#include <cctype>
-#include <cstdlib>
-#include <ctime>
-#include <vector>
-#include <iostream>
-#include <string>
-#include <queue>
-#include <set>
-#include <map>
-#include <algorithm>
-#include <complex>
-#include <stack>
-#include <bitset>
-#include <iomanip>
-#include <list>
-#include <sstream>
-#include <fstream>
-#if __cplusplus >= 201103L
-#include <unordered_map>
-#include <unordered_set>
-#endif
-#define endl '\n'
-#define ll long long
-#define ull unsigned long long
-#define DEBUG(x) cout<<#x<<" : "<<x<<endl;
-#define lowbit(x) x&(-x)
-#define ls u<<1
-#define rs u<<1|1
+#include<bits/stdc++.h>
 using namespace std;
-template<typename T> inline T MIN(const T &a,const T &b) {return a<b?a:b;}
-template<typename T> inline T MAX(const T &a,const T &b) {return a>b?a:b;}
-template<typename T,typename ...Args> inline T MIN(const T &a,const T &b,Args ...args) {return MIN(MIN(a,b),args...);}
-template<typename T,typename ...Args> inline T MAX(const T &a,const T &b,Args ...args) {return MAX(MAX(a,b),args...);}
-typedef pair<int,int> pii;
-typedef pair<ll,ll> pll;
-typedef pair<double,double> pdd;
-const double eps = 1e-8;
-const int INF = 0x3f3f3f3f;
-const int mod = 1e9+7;
-const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
-int main(){
-	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
-#ifdef WindCry1
-	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
-#endif
-	auto f = [](int u,int v){
-		cout<<u<<v<<endl;
-	};
-	int a,b;cin>>a>>b;
-	f(a,b);
-	return 0;
+#define RI register int
+const int mod=998244353,G=3,N=262150;
+int n,kn,len,ans;
+int a[N],b[N],fac[N],ni[N],rev[N];
+int ksm(int x,int y) {
+	int re=1;
+	for(;y;y>>=1,x=1LL*x*x%mod) if(y&1) re=1LL*re*x%mod;
+	return re;
 }
-
-
+void NTT(int *a,int n,int x) {
+    for(RI i=0;i<n;++i) if(rev[i]>i) swap(a[i],a[rev[i]]);
+    for(RI i=1;i<n;i<<=1) {
+        int gn=ksm(G,(mod-1)/(i<<1));
+        for(RI j=0;j<n;j+=(i<<1)) {
+            int g=1,t1,t2;
+            for(RI k=0;k<i;++k,g=1LL*g*gn%mod) {
+                t1=a[j+k],t2=1LL*g*a[j+i+k]%mod;
+                a[j+k]=(t1+t2)%mod,a[j+i+k]=(t1-t2+mod)%mod;
+            }
+        }
+    }
+    if(x==1) return;
+    int inv=ksm(n,mod-2);reverse(a+1,a+n);
+    for(RI i=0;i<n;++i) a[i]=1LL*a[i]*inv%mod;
+}
+int main()
+{
+	scanf("%d",&n);
+	fac[0]=1;for(RI i=1;i<=n;++i) fac[i]=1LL*fac[i-1]*i%mod;
+	ni[n]=ksm(fac[n],mod-2);
+	for(RI i=n-1;i>=0;--i) ni[i]=1LL*ni[i+1]*(i+1)%mod;
+	for(RI i=0;i<=n;++i) {
+		a[i]=1LL*(1-2*(i&1)+mod)%mod*ni[i]%mod;
+		if(i!=1) b[i]=1LL*(ksm(i,n+1)-1+mod)%mod*ni[i]%mod*ksm(i-1+mod,mod-2)%mod;
+		else b[i]=n+1;
+	}
+	kn=1;while(kn<=n+n) kn<<=1,++len;
+	for(RI i=0;i<kn;++i) rev[i]=(rev[i>>1]>>1)|((i&1)<<(len-1));
+	NTT(a,kn,1),NTT(b,kn,1);
+	for(RI i=0;i<kn;++i) a[i]=1LL*a[i]*b[i]%mod;
+	NTT(a,kn,-1);
+	for(RI i=0,j=1;i<=n;++i,j=(j+j)%mod)
+		ans=(ans+1LL*j*fac[i]%mod*a[i]%mod)%mod;
+	printf("%d\n",ans);
+    return 0;
+}
