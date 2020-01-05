@@ -55,10 +55,19 @@ int main(){
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	auto cmp = [&](int u,int v){
-		cout<<u<<" "<<v<<endl;
-	};
+	int T;cin>>T;while(T--){
+		int k;string s;cin>>k>>s;
+		s+='A';
+		int cnt=0,res=0,first=1;
+		for(auto i:s){
+			if(first&&i=='P') continue;
+			first=0;
+			if(i=='P') cnt++;
+			else cnt=0;
+			res=max(res,cnt);
+		}
+		cout<<res<<endl;
+	}
 	return 0;
 }
 

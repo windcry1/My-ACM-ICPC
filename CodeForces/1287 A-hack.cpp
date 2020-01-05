@@ -49,16 +49,33 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int p[2010],c[2010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	auto cmp = [&](int u,int v){
-		cout<<u<<" "<<v<<endl;
-	};
+int k;
+	string s;cin>>k>>s;
+	int c=0;
+	for(int i=0;i<s.size();i++){
+		if(s[i]=='A') c++;
+	}
+	if(c>=2){
+		int ma[c];
+		int k=0;
+		for(int i=0;i<s.size();i++){
+			if(s[i]=='A') ma[k]=i,k++;
+		}
+		int diff[c-1];
+		for(int i=0;i<c-1;i++){
+			diff[i]=ma[i+1]-ma[i]-1;
+		}
+		int m=diff[0];
+		for(int j=0;j<c-1;j++) m=max(m,diff[j]);
+		m=max(m,(int)s.size()-ma[c-1]-1);
+		cout<<m<<endl;
+	}
 	return 0;
 }
 
