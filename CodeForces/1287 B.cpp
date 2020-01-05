@@ -55,11 +55,11 @@ int main(){
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
 	int n,k;cin>>n>>k;
-	map<string,int> mp;
+	unordered_set<string> st;
 	string s[1600];
 	for(int i=1;i<=n;i++) {
 		cin>>s[i];
-		mp[s[i]]++;
+		st.insert(s[i]);
 	}
 	int ans=0;
 	for(int i=1;i<=n;i++){
@@ -72,7 +72,7 @@ int main(){
 				}
 				res+='S'+'E'+'T'-s[i][p]-s[j][p];
 			}
-			ans+=mp[res];
+			ans+=st.count(res);
 		}
 	}
 	cout<<ans/3<<endl;
