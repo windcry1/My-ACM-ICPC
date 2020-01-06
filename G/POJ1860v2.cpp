@@ -38,14 +38,6 @@ void add_edge(int u,int v,double r,double c){
 	edge[tot].next=head[u];
 	head[u]=tot;
 }
-/oid dfs(int u){
-//	fail[u]=1;
-//	for(int i=head[u];i;u=edge[i].next){
-//		if(!fail[edge[i].to]){
-//			dfs(edge[i].to);
-//		}
-//	}
-//}
 int n,m,s;double w;
 int spfa(int x){
 	for(int i=1;i<=n;i++){
