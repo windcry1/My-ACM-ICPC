@@ -4,5 +4,5 @@ del /S *.ilk
 del /S *.pdb
 del /S gmon.out
 git add .
-git commit -m "My ACM/ICPC"
+git commit -S -m "My ACM/ICPC"
 git push git@github.com:windcry1/My-ACM-ICPC.git
