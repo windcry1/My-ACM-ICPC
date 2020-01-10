@@ -36,6 +36,14 @@ struct cmpx{
 	return dis[a]>dis[b];
 	} 
 };
+struct node{
+    int v;
+    int c;
+    node(int _v=0,int _c=0):v(_v),c(_c){}
+    bool operator <(const node &r)const{
+        return c>r.c;
+    }
+};
 int head[1000010];
 void init(){
 	memset(head,0,sizeof head);
@@ -69,6 +77,24 @@ void dij(int x){
 		}
 	}
 }
+void dij1(int x){
+	for(int i=1;i<=p;i++) dis[i]=INF,vis[i]=false;
+	dis[x]=0;
+	priority_queue<node> q;
+	q.push(node(x,dis[x]));
+	while(!q.empty()){
+		int u=q.top().v;q.pop();
+		if(vis[u]) continue;
+		vis[u]=true;
+		for(int i=head[u];i;i=edge[i].next){
+			int v=edge[i].to;
+			if(!vis[v]&&dis[v]>dis[u]+edge[i].val){
+				dis[v]=dis[u]+edge[i].val;
+				q.push(node(v,dis[v]));
+			}
+		}
+	}
+}
 signed main(){
 	int n;scanf("%d",&n);
 	while(n--){
@@ -77,14 +103,14 @@ signed main(){
 			scanf("%d%d%d",u1+i,v1+i,w1+i);
 		init();
 		for(int i=1;i<=t;i++) add_edge(u1[i],v1[i],w1[i]);
-		dij(1);
+		dij1(1);
 		ll ans=0;
 		for(int i=1;i<=p;i++)
 			ans+=dis[i];
 		init();
 		for(int i=1;i<=t;i++)
 			add_edge(v1[i],u1[i],w1[i]);
-		dij(1);
+		dij1(1);
 		for(int i=1;i<=p;i++)
 			ans+=dis[i];
 		printf("%lld\n",ans);
