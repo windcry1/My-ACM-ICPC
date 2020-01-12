@@ -49,15 +49,49 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+char a[22][22];
+int h,w;
+bool vis[22][22];
+struct node{
+	int x,y,step;
+};
+int bfs(int x,int y){
+	memset(vis,0,sizeof vis);
+	int res=0;
+	vis[x][y]=1;
+	queue<node> q;
+	q.push(node{x,y,0});
+	while(!q.empty()){
+		node t=q.front();q.pop();
+#ifdef WindCry1
+	cout<<t.x<<" "<<t.y<<" "<<t.step<<endl;
+#endif
+		res=max(res,t.step);
+		for(int i=0;i<4;i++){
+			int dx=dir[i][0]+t.x,dy=dir[i][1]+t.y;
+			if(dx>=1 and dx<=h and dy>=1 and dy<=w and a[dx][dy]=='.' and !vis[dx][dy]){
+				q.push(node{dx,dy,t.step+1});
+				vis[dx][dy]=1;
+			}
+		}
+	}
+	return res;
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	vector<int> v(n);
-	for(auto &i:v) cin>>i;
+	cin>>h>>w;
+	for(int i=1;i<=h;i++)
+		for(int j=1;j<=w;j++) cin>>a[i][j];
+	int res=0;
+	for(int i=1;i<=h;i++){
+		for(int j=1;j<=w;j++){
+			if(a[i][j]=='.') res=max(res,bfs(i,j));
+		}
+	}
+	cout<<res<<endl;
 	return 0;
 }
 

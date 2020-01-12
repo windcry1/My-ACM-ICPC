@@ -47,17 +47,66 @@ typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
-const int mod = 1e9+7;
+const ll mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+ll fac[100010],a[100010];
+ll quick_mod(ll a, ll b, ll c){
+    ll ans = 1;
+    while(b){
+        if(b & 1) ans = (ans*a)%c;
+        b>>=1;
+        a = (a*a)%c;
+    }
+    return ans;
+}
+void Get_Fac(ll m){
+    fac[0] = 1;
+    for(int i=1; i<=m; i++)
+        fac[i] = (fac[i-1]*i) % m;
+}
+ll Lucas(ll n, ll m, ll p){
+    ll ans = 1;
+    while(n && m)
+    {
+        ll a = n % p;
+        ll b = m % p;
+        if(a < b) return 0;
+        ans = ( (ans*fac[a]%p) * (quick_mod(fac[b]*fac[a-b]%p,p-2,p)) ) % p;
+        n /= p;
+        m /= p;
+    }
+    return ans;
+}
+ll inv(ll a,ll p){
+	return quick_mod(a,p-2,p);
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	vector<int> v(n);
-	for(auto &i:v) cin>>i;
+	Get_Fac(100000);
+	ll n,k;cin>>n>>k;
+	for(int i=1;i<=n;i++) cin>>a[i];
+	sort(a+1,a+1+n);
+	ll res=0,ans=0;
+	for(int i=k;i<=n;i++) res=res+(a[i]-a[1])*(Lucas(i-2,k-2,mod))%mod;
+#ifdef WindCry1
+	for(int i=1;i<=n;i++) cout<<a[i]<<" ";cout<<endl; 
+	DEBUG(res);
+#endif
+	for(int i=k;i<=n;i++){
+		ans=(ans+res)%mod;
+		res=(res-a[i]+mod)%mod;
+#ifdef WindCry1
+	DEBUG(res);
+#endif
+		res=(n)%mod*inv(n-k,mod)%mod;
+#ifdef WindCry1
+	DEBUG(res);
+#endif
+	}
+	cout<<ans<<endl;
 	return 0;
 }
 

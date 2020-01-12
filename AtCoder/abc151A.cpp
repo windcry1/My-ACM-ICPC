@@ -55,9 +55,8 @@ int main(){
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	vector<int> v(n);
-	for(auto &i:v) cin>>i;
+	char c;cin>>c;
+	cout<<(char)(c+1)<<endl;
 	return 0;
 }
 

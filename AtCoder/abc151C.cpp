@@ -49,15 +49,29 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int p[100010],punish[100010];
+string s[100010];
+bool flag[100010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	vector<int> v(n);
-	for(auto &i:v) cin>>i;
+	int n,m;cin>>n>>m;
+	for(int i=1;i<=m;i++){
+		cin>>p[i]>>s[i];
+		if(!flag[p[i]] and s[i]=="WA"){
+			punish[p[i]]++;
+		}
+		if(!flag[p[i]] and s[i]=="AC"){
+			flag[p[i]]=1;
+		}
+	}
+	int sum=0,pun=0;
+	for(int i=1;i<=n;i++) {
+		if(flag[i]) sum++,pun+=punish[i];
+	}
+	cout<<sum<<" "<<pun<<endl;
 	return 0;
 }
 
