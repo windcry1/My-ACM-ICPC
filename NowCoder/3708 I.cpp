@@ -49,29 +49,41 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-int solve(vector<int> v,int bit){
-	if(bit<0) return 0;
-	vector<int> l,r;
-	for(auto i:v){
-		if(i&(1<<bit)) r.push_back(i);
-		else l.push_back(i);
-	}
-	if(l.size()==0) return solve(r,bit-1);
-	if(r.size()==0) return solve(l,bit-1);
-	return MIN(solve(l,bit-1),solve(r,bit-1))+(1<<bit);
-}
+char a[110][110];
+int res[110][110];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	vector<int> a;
-	for(int i=0;i<n;i++) {
-		int t;cin>>t;
-		a.push_back(t);
+	int n,m;cin>>n>>m;
+	for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) cin>>a[i][j];
+#ifdef WindCry1
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			cout<<a[i][j];
+		}
+		cout<<endl;
 	}
-	cout<<solve(a,30)<<endl;
+#endif
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			if(a[i][j]=='?'){
+				for(int k=i-1;k<=i+1;k++){
+					for(int l=j-1;l<=j+1;l++){
+						res[i][j]+=(a[k][l]=='*');
+					}
+				}
+			}
+		}
+	}
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			if(a[i][j]=='*') cout<<a[i][j];
+			else cout<<res[i][j];
+		}
+		cout<<endl;
+	}
 	return 0;
 }
 
