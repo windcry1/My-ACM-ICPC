@@ -50,7 +50,7 @@ const int INF = 0x3f3f3f3f;
 const ll mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
 ll fac[100010],a[100010];
-ll quick_mod(ll a, ll b, ll c){
+ll qmi(ll a, ll b, ll c){
     ll ans = 1;
     while(b){
         if(b & 1) ans = (ans*a)%c;
@@ -71,7 +71,7 @@ ll Lucas(ll n, ll m, ll p){
         ll a = n % p;
         ll b = m % p;
         if(a < b) return 0;
-        ans = ( (ans*fac[a]%p) * (quick_mod(fac[b]*fac[a-b]%p,p-2,p)) ) % p;
+        ans = ((ans*fac[a]%p)*(qmi(fac[b]*fac[a-b]%p,p-2,p))) % p;
         n /= p;
         m /= p;
     }
