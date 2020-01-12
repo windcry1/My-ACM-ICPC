@@ -86,11 +86,9 @@ int main(){
 	for(int i=1;i<=h;i++)
 		for(int j=1;j<=w;j++) cin>>a[i][j];
 	int res=0;
-	for(int i=1;i<=h;i++){
-		for(int j=1;j<=w;j++){
+	for(int i=1;i<=h;i++)
+		for(int j=1;j<=w;j++)
 			if(a[i][j]=='.') res=max(res,bfs(i,j));
-		}
-	}
 	cout<<res<<endl;
 	return 0;
 }
