@@ -32,7 +32,6 @@
 #endif
 #define endl '\n'
 #define ll long long
-#define int long long
 #define ull unsigned long long
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
 #define lowbit(x) x&(-x)
@@ -48,52 +47,46 @@ typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
-const int mod = 998244353;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-ll f[100010],g[100010];
+ll a[200010],dp[200010];
+int n,mod;
 ll qmi(ll a,ll b,ll mod){
 	ll res=1;
 	while(b){
 		if(b&1LL) res=res*a%mod;
-		a=a*a%mod;
 		b>>=1;
+		a=a*a%mod;
 	}
 	return res;
 }
-vector<ll> prime;
-void getprime(ll n){
-	prime.clear();
-	for(ll i=2;i<=sqrt(n);i++)
-		if(n%i==0) prime.push_back(i);
+unordered_map<ll,int> mp;
+int check(int x){
+	unordered_map<int,int> p;
+	int res=-1;
+	for(int i=n;i>=1;i--){
+		dp[i]=1;
+		dp[i]=dp[p[a[i]*x%mod]]+1;
+		p[a[i]]=i;
+		res=max(res,dp[i]);
+	}
+	return res;
 }
-inline void end(){
-	cout<<-1<<endl;
-	exit(0);
-}
-signed main(){
+int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;ll k;cin>>n>>k;
-	f[1]=1;cin>>g[1];
-	for(int i=2;i<=n;i++) {
-		cin>>g[i];
-		getprime(i);
-		if(prime.size()==0) {
-			f[i]=g[i]*qmi(k,mod-2,mod);
-		}
-		ll tmp=0;
-		for(int j=0;j<(int)prime.size();j++){
-			if(prime[j]*prime[j]!=i) tmp+=k*(k-1)%mod*f[prime[j]]%mod*f[i/prime[j]]%mod;
-			else tmp+=k*(k-1)/2%mod*f[prime[j]]%mod*f[prime[j]]%mod;
-			tmp%=mod;
-		}
-		g[i]=(g[i]-tmp+mod)%mod;
-		f[i]=g[i]*qmi(k,mod-2,mod);
+	int T;cin>>T;while(T--){
+		mp.clear();
+		cin>>n>>mod;
+		for(int i=1;i<=n;i++) cin>>a[i];
+		for(int i=1;i<=n-1;i++) mp[a[i+1]*qmi(a[i],mod-2,mod)%mod]++;
+		for(int i=1;i<=n-2;i++) mp[a[i+2]*qmi(a[i],mod-2,mod)%mod]++;
+		int ans=-1;
+		for(auto i:mp)
+			if(i.second>=n/8) ans=max(ans,check(i.first));
+		cout<<(ans*2>=n?ans:-1)<<endl;
 	}
-	for(int i=1;i<=n;i++) cout<<f[i]<<" ";
-	cout<<endl;
 	return 0;
 }
 
