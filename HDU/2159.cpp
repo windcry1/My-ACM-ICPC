@@ -49,34 +49,29 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-int dp1[210][210],dp2[210][210];
-int a[210];
-int suf[210];
+int v[110],c[110],dp[110][110];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	for(int i=1;i<=n;i++) cin>>a[i],a[i+n]=a[i];
-	for(int i=1;i<=2*n;i++) suf[i]=suf[i-1]+a[i];
-	memset(dp2,INF,sizeof dp2);
-	for(int i=1;i<=2*n;i++) dp2[i][i]=0;
-	for(int len=1;len<=n;len++){
-		for(int l=1;l+len-1<=2*n;l++){
-			int r=l+len-1;
-			for(int i=l;i<r;i++){
-				dp1[l][r]=max(dp1[l][r],dp1[l][i]+dp1[i+1][r]+suf[r]-suf[l-1]);
-				dp2[l][r]=min(dp2[l][r],dp2[l][i]+dp2[i+1][r]+suf[r]-suf[l-1]);
+	int n,m,k,s;while(cin>>n>>m>>k>>s){
+		for(int i=1;i<=k;i++) cin>>c[i]>>v[i];
+		memset(dp,0,sizeof dp);
+		for(int i=1;i<=k;i++)
+			for(int j=v[i];j<=m;j++)
+				for(int l=s;l>=1;l--)
+					dp[j][l]=max(dp[j][l],dp[j-v[i]][l-1]+c[i]);
+		bool flag=0;
+		for(int i=1;i<=m;i++){
+			if(dp[i][s]>=n){
+				cout<<m-i<<endl;
+				flag=1;
+				break;
 			}
 		}
+		if(!flag) cout<<-1<<endl;
 	}
-	int res1=0,res2=INF;
-	for(int i=1;i<=n;i++){
-		res1=max(res1,dp1[i][i+n-1]);
-		res2=min(res2,dp2[i][i+n-1]);
-	}
-	cout<<res2<<endl<<res1<<endl;
 	return 0;
 }
 
