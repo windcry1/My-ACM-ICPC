@@ -33,7 +33,9 @@
 #define endl '\n'
 #define ll long long
 #define ull unsigned long long
+#ifdef WindCry1
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
+#endif
 #define lowbit(x) x&(-x)
 #define ls u<<1
 #define rs u<<1|1
@@ -47,15 +49,26 @@ typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
-const int mod = 1e9+7;
+const int mod = 1e4+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int dp[1010][1010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;cout<<n+1<<endl;
+	int T;cin>>T;for(int cas=1;cas<=T;cas++){
+		string s;cin>>s;
+		memset(dp,0,sizeof dp);
+		for(int i=0;i<(int)s.size();i++) dp[i][i]=1;
+		for(int len=1;len<=(int)s.size();len++){
+			for(int l=0;l+len-1<(int)s.size();l++){ 
+				int r=l+len-1;
+				dp[l][r]=(dp[l+1][r]+dp[l][r-1]+(s[l]==s[r]?1:-dp[l+1][r-1])+mod)%mod;
+			}
+		}
+		cout<<"Case "<<cas<<": "<<dp[0][s.size()-1]<<endl;
+	}
 	return 0;
 }
 

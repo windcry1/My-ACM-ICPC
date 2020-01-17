@@ -55,7 +55,20 @@ int main(){
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;cout<<n+1<<endl;
+	int res=0;
+	int T;cin>>T;while(T--){
+		int n,d;cin>>n>>d;
+		bool flag=true;
+		for(int i=max(0,(int)(sqrt(d)-1000));i<=min((int)(sqrt(d)+1000),n);i++){
+			if(i+ceil(1.0*d/(i+1))<=n){
+				//cout<<"YES"<<endl;
+				flag=false;
+				break;
+			}
+		}
+		if(flag) cout<<"NO"<<endl,++res;
+	}
+	cout<<res<<endl;
 	return 0;
 }
 

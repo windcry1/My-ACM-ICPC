@@ -33,7 +33,9 @@
 #define endl '\n'
 #define ll long long
 #define ull unsigned long long
+#ifdef WindCry1
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
+#endif
 #define lowbit(x) x&(-x)
 #define ls u<<1
 #define rs u<<1|1
@@ -49,13 +51,44 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int n,m;
+vector<int> a[300010];
+unordered_map<int,int> pos;
+bool check(int x){
+	pos.clear();
+	for(int i=1;i<=n;i++){
+		int temp=0;
+		for(int j=0;j<m;j++) temp |= (a[i][j]>=x)<<j;
+		pos[temp]=i;
+	}
+	for(int i=0;i<(1<<m);i++)
+		for(int j=0;j<(1<<m);j++)
+			if(pos[i] and pos[j] and (i|j)==(1<<m)-1) return 1;
+	return 0;
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;cout<<n+1<<endl;
+	cin>>n>>m;
+	for(int i=1;i<=n;i++){
+		a[i].resize(m);
+		for(auto &i:a[i]) cin>>i;
+	}
+	int l=0,r=1e9;
+	while(l<r){
+		int mid=(l+r+1)>>1;
+		if(check(mid)) l=mid;
+		else r=mid-1;
+	}
+	check(l);
+	for(int i=0;i<(1<<m);i++)
+		for(int j=0;j<(1<<m);j++)
+			if(pos[i] and pos[j] and (i|j)==(1<<m)-1) {
+				cout<<pos[i]<<" "<<pos[j]<<endl;
+				return 0;
+			}
 	return 0;
 }
 

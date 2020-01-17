@@ -33,7 +33,9 @@
 #define endl '\n'
 #define ll long long
 #define ull unsigned long long
+#ifdef WindCry1
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
+#endif
 #define lowbit(x) x&(-x)
 #define ls u<<1
 #define rs u<<1|1
@@ -49,13 +51,23 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+ll cnt(int x){
+	ll res=0;
+	while(x){
+		x/=10;
+		++res;
+	}
+	return res;
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;cout<<n+1<<endl;
+	int T;cin>>T;while(T--){
+		ll a,b;cin>>a>>b;
+		cout<<(cnt(b+1)-1)*a<<endl;
+	}
 	return 0;
 }
 

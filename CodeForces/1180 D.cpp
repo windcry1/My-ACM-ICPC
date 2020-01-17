@@ -33,7 +33,9 @@
 #define endl '\n'
 #define ll long long
 #define ull unsigned long long
+#ifdef WindCry1
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
+#endif
 #define lowbit(x) x&(-x)
 #define ls u<<1
 #define rs u<<1|1
@@ -55,7 +57,21 @@ int main(){
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n;cin>>n;cout<<n+1<<endl;
+	int n,m;
+	cin>>n>>m;
+	for(int i=0;i<n/2;i++){
+		for(int j=0;j<m;j++){
+			cout<<i+1<<" "<<j+1<<endl;
+			cout<<n-i<<" "<<m-j<<endl;
+		}
+	}
+	if(n&1){
+		for(int j=0;j<m/2;j++){
+			cout<<n/2+1<<" "<<j+1<<endl;
+			cout<<n/2+1<<" "<<m-j<<endl;
+		}
+		if(m&1) cout<<n/2+1<<" "<<m/2+1<<endl;
+	}
 	return 0;
 }
 
