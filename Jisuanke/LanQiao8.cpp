@@ -61,8 +61,7 @@ ll qmi(ll a,ll b,ll p){
 	return res;
 }
 bool judge(int i,int j,ll m,ll ans,string s){
-	ans=(ans-(s[j]-'A')*qmi(26,(int)s.size()-i-1,m)-(s[i]-'A')*qmi(26,(int)s.size()-j-1,m)+2*m)%m;
-	ans=(ans+(s[i]-'A')*qmi(26,(int)s.size()-i-1,m)+(s[j]-'A')*qmi(26,(int)s.size()-j-1,m))%m;
+	ans=(ans+(s[i]-s[j])*qmi(26,(int)s.size()-i-1,m)+(s[j]-s[i])*qmi(26,(int)s.size()-j-1,m)+200*m)%m;
 	return (ans==0LL?true:false);
 }
 int main(){
