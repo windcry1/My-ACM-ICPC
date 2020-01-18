@@ -32,6 +32,7 @@
 #endif
 #define endl '\n'
 #define ll long long
+#define int long long 
 #define ull unsigned long long
 #ifdef WindCry1
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
@@ -61,10 +62,10 @@ ll qmi(ll a,ll b,ll p){
 	return res;
 }
 bool judge(int i,int j,ll m,ll ans,string s){
-	ans=(ans+(s[i]-s[j])*qmi(26,(int)s.size()-i-1,m)+(s[j]-s[i])*qmi(26,(int)s.size()-j-1,m)+200*m)%m;
+	ans=(ans+(s[i]-s[j])*qmi(26LL,(ll)s.size()-i-1,m)+(s[j]-s[i])*qmi(26LL,(ll)s.size()-j-1,m)+2000*m)%m;
 	return (ans==0LL?true:false);
 }
-int main(){
+signed main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);

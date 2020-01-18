@@ -51,15 +51,16 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-unordered_set<int> st;
-int d[2000010];
+unordered_set<ll> st;
+ll d[2000010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int a,b,c;cin>>a>>b>>c;
+	ll a,b,c;cin>>a>>b>>c;
 	d[0]=1;
+	st.insert(d[0]);
 	for(int i=1;i<=2000000;i++){
 		d[i]=(a*d[i-1]+d[i-1]%b)%c;
 		if(st.count(d[i])) {

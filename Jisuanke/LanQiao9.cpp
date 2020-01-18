@@ -65,7 +65,7 @@ bool vis[20010];
 void dij1(int x){
 	for(int i=1;i<=n;i++) dis[i]=INF,vis[i]=false;
 	dis[x]=0;
-	priority_queue<pair<int,int> > q;	
+	priority_queue<pair<ll,int> > q;	
 	q.push(make_pair(-dis[x],x));
 	while(!q.empty()){
 		int u=q.top().second; q.pop();
@@ -83,7 +83,7 @@ void dij1(int x){
 void dij2(int x){
 	for(int i=1;i<=n;i++) dis[i]=INF,vis[i]=false;
 	dis[x]=0;
-	priority_queue<pair<int,int> > q;	
+	priority_queue<pair<ll,int> > q;	
 	q.push(make_pair(-dis[x],x));
 	while(!q.empty()){
 		int u=q.top().second; q.pop();
@@ -98,7 +98,7 @@ void dij2(int x){
 		}
 	}
 }
-int main(){
+signed main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
