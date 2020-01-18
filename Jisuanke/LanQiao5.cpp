@@ -62,7 +62,7 @@ int main(){
 	for(int i=1;i<=k;i++){
 		for(int j=1;j<=k;j++){
 			if(i*i+j*j>k*k) break;
-			res=(res+(n-i)*(n-j)*2)%mod;
+			if(__gcd(i,j)==1) res=(res+(n-i)*(n-j)*2)%mod;
 		}
 	}
 	cout<<res<<endl;
