@@ -49,15 +49,27 @@ typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
-const int mod = 1e9+7;
+const int mod = 20010905;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int cnt[10]={0};
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	cout<<1llu-2<<endl;
+	string s;cin>>s;
+	
+	for(auto &i:s) i=tolower(i);
+	for(auto i:s){
+		if(i=='i') cnt[0]++,cnt[0]%=mod;
+		if(i=='l') cnt[1]+=cnt[0],cnt[1]%=mod;
+		if(i=='o') cnt[2]+=cnt[1],cnt[6]+=cnt[5],cnt[2]%=mod,cnt[6]%=mod;
+		if(i=='v') cnt[3]+=cnt[2],cnt[3]%=mod;
+		if(i=='e') cnt[4]+=cnt[3],cnt[4]%=mod;
+		if(i=='y') cnt[5]+=cnt[4],cnt[5]%=mod;
+		if(i=='u') cnt[7]+=cnt[6],cnt[7]%=mod;
+	}
+	cout<<cnt[7]<<endl;
 	return 0;
 }
 

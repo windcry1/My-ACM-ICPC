@@ -57,7 +57,8 @@ int main(){
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	cout<<1llu-2<<endl;
+	string s;cin>>s;
+	cout<<((*s.rbegin())&1?-1:1)<<endl;
 	return 0;
 }
 

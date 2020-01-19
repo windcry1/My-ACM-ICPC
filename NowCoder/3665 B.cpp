@@ -51,13 +51,17 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+map<string,int> mp,a;
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	cout<<1llu-2<<endl;
+	string s;int k;cin>>s>>k; 
+	for(int i=0;i<=(int)s.size()-k;i++) mp[s.substr(i,k)]++;
+	for(auto i:mp) if(i.second>=3) a.insert(i);
+	cout<<a.size()<<endl;
+	for(auto i:a) cout<<i.first<<endl;
 	return 0;
 }
 

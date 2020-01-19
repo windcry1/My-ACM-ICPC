@@ -51,13 +51,29 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int change(int x){
+	if(x==1 or x==2 or x==3 or x==5 or x==7) return 0;
+	if(x==0 or x==4 or x==6 or x==9) return 1;
+	return 2;
+}
+int cal(int x){
+	int res=0;
+	while(x){
+		res+=change(x%10);
+		x/=10;
+	}
+	return res;
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	cout<<1llu-2<<endl;
+	int T;cin>>T;
+	while(T--){
+		int n;cin>>n;
+		cout<<cal(n)<<endl;
+	}
 	return 0;
 }
 

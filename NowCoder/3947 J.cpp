@@ -50,14 +50,43 @@ typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
-const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+const int dir[6][3]={-1,0,0,1,0,0,0,-1,0,0,1,0,0,0,-1,0,0,1};
+char a[110][110][110];
+bool vis[110][110][110];
+struct node{
+	int x,y,z,step;
+};
+int bfs(int x1,int y1,int z1,int x2,int y2,int z2,int n){
+	vis[x1][y1][z1]=1;
+	queue<node> q;
+	q.push(node{x1,y1,z1,1});
+	while(!q.empty()){
+		node t=q.front(); q.pop();
+	#ifdef WindCry1
+		cout<<t.x<<" "<<t.y<<" "<<t.z<<endl;
+	#endif
+		if(t.x==x2 and t.y==y2 and t.z==z2) return t.step;
+		for(int i=0;i<6;i++){
+			int dx=t.x+dir[i][0],dy=t.y+dir[i][1],dz=t.z+dir[i][2];
+			if(dx>=1 and dx<=n and dy>=1 and dy<=n and dz>=1 and dz<=n and !vis[dx][dy][dz] and a[dx][dy][dz]=='.'){
+				vis[dx][dy][dz]=1;
+				q.push(node{dx,dy,dz,t.step+1});
+			}
+		}
+	}
+	return -1;
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	cout<<1llu-2<<endl;
+	int n;cin>>n;
+	for(int i=1;i<=n;i++) for(int j=1;j<=n;j++) for(int k=1;k<=n;k++) cin>>a[i][j][k];
+	#ifdef WindCry1
+		for(int i=1;i<=n;i++) {for(int j=1;j<=n;j++) {for(int k=1;k<=n;k++) cout<<a[i][j][k];cout<<endl;}cout<<endl;}
+	#endif
+	cout<<bfs(1,1,1,n,n,n,n)<<endl;
 	return 0;
 }
 

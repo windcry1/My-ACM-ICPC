@@ -57,7 +57,13 @@ int main(){
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	cout<<1llu-2<<endl;
+	ll t1,t2;while(cin>>t1>>t2){
+		ll l1=t1/60*60+1,l2=t2/60*60;
+		ll time1=max(0LL,min(t1-l1,50LL))+t1/60*50;
+		ll time2=max(0LL,min(t2-l2,50LL))+t2/60*50;
+		cout<<time2-time1<<endl;
+	}
+	
 	return 0;
 }
 

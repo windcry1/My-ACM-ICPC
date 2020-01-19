@@ -51,13 +51,19 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+vector<int> res;
+void getprime(int x){
+	for(int i=2,t=x;i<=t;i++) {
+		while(x%i==0) x/=i,res.push_back(i);
+	}
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	cout<<1llu-2<<endl;
+	int n;cin>>n;getprime(n);
+	cout<<(res.size()&1?"Nancy":"Johnson")<<endl;
 	return 0;
 }
 

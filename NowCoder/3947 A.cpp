@@ -57,7 +57,10 @@ int main(){
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	cout<<1llu-2<<endl;
+	double x[3],y[3];for(int i=0;i<3;i++) cin>>x[i]>>y[i];
+	double a=2*x[2]-2*x[1],b=2*y[2]-2*y[1],c=x[2]*x[2]-x[1]*x[1]+y[2]*y[2]-y[1]*y[1];
+	double d=2*x[1]-2*x[0],e=2*y[1]-2*y[0],f=x[1]*x[1]-x[0]*x[0]+y[1]*y[1]-y[0]*y[0];
+	cout<<fixed<<setprecision(3)<<(f*b-c*e)/(d*b-a*e)<<' '<<(a*f-c*d)/(a*e-b*d)<<endl;
 	return 0;
 }
 
