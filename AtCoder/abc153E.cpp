@@ -49,42 +49,32 @@ typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
-const int INF = 0x3f3f3f3f;
+const ll INF = 0x3f3f3f3f3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
+ll a[1010],b[1010];
+ll dp[40010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n,m;cin>>n>>m;
-	vector<vector<int> > a(n);
-	for(int i=0;i<n;i++)
-		for(int j=0,t;j<m;j++)
-			cin>>t,a[i].push_back(t);
-	ll ans=0;
-	for(int i=0;i<m;i++){
-		vector<int> t;
-		for(int cas=1;cas<=2;cas++) for(int j=0;j<n;j++) t.push_back(a[j][i]);
-		int res=n,cnt=0,pos=0;
-		for(int j=0;j<(int)t.size();j++){
-			if((t[j]-i-1)%m==0 and (t[j]-i-1)/m==cnt and cnt+1<=n){
-				cnt++;
-			}
-			else {
-				#ifdef WindCry1
-				DEBUG(i);
-				DEBUG(j);
-				DEBUG(cnt);
-				DEBUG(j+n-2*cnt);
-				#endif
-				res=MIN(res,j+n-2*cnt);
-				cnt=0;
-			}
+	int h,n;cin>>h>>n;
+	memset(dp,0x3f,sizeof dp);
+	dp[0]=0;
+	for(int i=1;i<=n;i++) cin>>a[i]>>b[i];
+	for(int i=1;i<=n;i++){
+		for(int j=a[i];j<=40000;j++){
+			dp[j]=min(dp[j],dp[j-a[i]]+b[i]); 
 		}
-		ans+=res;
 	}
-	cout<<ans<<endl;
+	ll res=INF; 
+	for(int i=h;i<=40000;i++){
+		if(dp[i]!=INF){
+			res=min(res,dp[i]);
+		}
+	}
+	cout<<res<<endl;
 	return 0;
 }
 

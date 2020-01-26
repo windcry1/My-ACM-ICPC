@@ -52,39 +52,28 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
+pll p[200010];
+set<pll> st;
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	int n,m;cin>>n>>m;
-	vector<vector<int> > a(n);
-	for(int i=0;i<n;i++)
-		for(int j=0,t;j<m;j++)
-			cin>>t,a[i].push_back(t);
-	ll ans=0;
-	for(int i=0;i<m;i++){
-		vector<int> t;
-		for(int cas=1;cas<=2;cas++) for(int j=0;j<n;j++) t.push_back(a[j][i]);
-		int res=n,cnt=0,pos=0;
-		for(int j=0;j<(int)t.size();j++){
-			if((t[j]-i-1)%m==0 and (t[j]-i-1)/m==cnt and cnt+1<=n){
-				cnt++;
-			}
-			else {
-				#ifdef WindCry1
-				DEBUG(i);
-				DEBUG(j);
-				DEBUG(cnt);
-				DEBUG(j+n-2*cnt);
-				#endif
-				res=MIN(res,j+n-2*cnt);
-				cnt=0;
-			}
+	int n;ll d,a;cin>>n>>d>>a;
+	for(int i=1;i<=n;i++) cin>>p[i].first>>p[i].second;
+	sort(p+1,p+1+n);
+	ll sum=0,res=0;
+	for(int i=1;i<=n;i++){
+		while(!st.empty() and st.begin()->first<p[i].first){
+			sum-=st.begin()->second;
+			st.erase(st.begin());
 		}
-		ans+=res;
+		ll temp=max(0LL,(ll)ceil(1.0*(p[i].second-sum)/a));
+		res+=temp;
+		st.insert(make_pair(p[i].first+2*d,temp*a));
+		sum+=temp*a;
 	}
-	cout<<ans<<endl;
+	cout<<res<<endl;
 	return 0;
 }
 
