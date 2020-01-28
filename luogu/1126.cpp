@@ -51,19 +51,72 @@ typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
-const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-ll sum(ll h){
-	if(h==1) return 1;
-	return sum(h/2)*2+1;
+const int dir[4][2]={-1,0,0,-1,1,0,0,1};
+bool a[60][60],vis[60][60][4];
+int n,m;
+struct node{
+	int x,y,step,pos;
+	node(int _x,int _y,int _step,int _pos):x(_x),y(_y),step(_step),pos(_pos){}
+	inline bool operator <(const node &b) const{
+		return step>b.step;
+	}
+};
+inline int change(char pos){
+	if(pos=='N') return 0;//ио 
+	if(pos=='W') return 1;//вС 
+	if(pos=='E') return 3;//ср 
+	if(pos=='S') return 2;//об 
+}
+int bfs(int stx,int sty,int edx,int edy,char pos){
+	priority_queue<node> q;
+	int pos_dir=change(pos);
+	vis[stx][sty][pos_dir]=1;
+	q.push(node(stx,sty,0,pos_dir));
+	while(!q.empty()){
+		node t=q.top();q.pop();
+		if(t.x==edx and t.y==edy){
+			int res=t.step;
+			return res;
+		}
+		for(int i=1;i<=3;i++){
+			int dx=t.x+dir[t.pos][0]*i,dy=t.y+dir[t.pos][1]*i;
+			if(dx>0 and dx<n and dy>0 and dy<m and !vis[dx][dy][t.pos] and !a[dx][dy]){
+				vis[dx][dy][t.pos]=1;
+				q.push(node(dx,dy,t.step+1,t.pos));
+			}
+			else break;
+		}
+		if(!vis[t.x][t.y][(t.pos+1)%4]){
+			vis[t.x][t.y][(t.pos+1)%4]=1;
+			q.push(node(t.x,t.y,t.step+1,(t.pos+1)%4));
+		}
+		if(!vis[t.x][t.y][(t.pos+3)%4]){
+			vis[t.x][t.y][(t.pos+3)%4]=1;
+			q.push(node(t.x,t.y,t.step+1,(t.pos+3)%4));
+		}
+	}
+	return -1;
 }
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	ll h;cin>>h;
-	cout<<sum(h)<<endl;
+	cin>>n>>m;
+	for(int i=0;i<n;i++){
+		for(i nt j=0;j<m;j++){
+			bool t;cin>>t;
+			if(t) a[i][j]=a[i+1][j]=a[i][j+1]=a[i+1][j+1]=1;
+		}
+	}
+	for(int i=0;i<=n;i++){
+		for(int j=0;j<=m;j++){
+			cout<<a[i][j]<<" ";
+		}
+		cout<<endl;
+	} 
+	int stx,sty,edx,edy;char pos;cin>>stx>>sty>>edx>>edy>>pos;
+	cout<<bfs(stx,sty,edx,edy,pos)<<endl;
 	return 0;
 }
-
 

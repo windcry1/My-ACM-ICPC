@@ -52,17 +52,46 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-ll sum(ll h){
-	if(h==1) return 1;
-	return sum(h/2)*2+1;
+int n,m;
+struct Tree {
+    int l,r,mid,max;
+}tree[100010<<2];
+void build(int u, int l, int r) {
+    tree[u].l=l,tree[u].r=r;
+    tree[u].mid=(l+r)>>1;
+    tree[u].max=-INF;
+    if(l<r){
+        build(ls,l,tree[u].mid);
+        build(rs,tree[u].mid+1,r);
+    }
+}
+void insert(int u, int pos, int x) {
+    tree[u].max=max(tree[u].max,x);
+    if(tree[u].l!=tree[u].r){
+        if(pos<=tree[u].mid) insert(ls,pos,x);
+        else insert(rs,pos,x);
+    }
+}
+int query(int u, int l, int r) {
+    if(l<=tree[u].l&&tree[u].r<=r)
+        return tree[u].max;
+    int maxx=-INF;
+    if(l<=tree[u].mid) maxx=max(maxx,query(ls,l,r));
+    if(tree[u].mid<r) maxx=max(maxx,query(rs,l,r));
+    return maxx;
 }
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	ll h;cin>>h;
-	cout<<sum(h)<<endl;
+	cin>>n>>m;
+	build(1,1,n);
+	for(int i=1,t;i<=n;i++) cin>>t,insert(1,i,t);
+	for(int i=0;i<m;i++){
+		int l,r;cin>>l>>r;
+		cout<<query(1,l,r)<<endl;
+	}
 	return 0;
 }
 

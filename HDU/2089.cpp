@@ -52,17 +52,44 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-ll sum(ll h){
-	if(h==1) return 1;
-	return sum(h/2)*2+1;
+ll dp[22][3];
+vector<int> bit;
+ll dfs(int pos,int sta,bool limit){
+    if(pos==-1) return sta==2;
+    if(!limit&&dp[pos][sta]!=-1) return dp[pos][sta];
+    int up=limit?bit[pos]:9;
+    ll ans=0;
+    for(int i=0;i<=up;i++){
+        if(sta==2 or (sta==1 and i==2) or i==4) ans+=dfs(pos-1,2,limit&&i==bit[pos]);
+        else if(i==6) ans+=dfs(pos-1,1,limit&&i==bit[pos]);
+        else ans+=dfs(pos-1,0,limit&&i==bit[pos]);
+    }
+    if(!limit) return dp[pos][sta]=ans;
+    return ans;
+}
+void change(ll x){
+	bit.clear();
+	while(x){
+		bit.push_back(x%10);
+		x/=10;
+	}
 }
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	ll h;cin>>h;
-	cout<<sum(h)<<endl;
+	ll l,r;
+	while(cin>>l>>r){
+		if(l==0 and r==0) return 0;
+		memset(dp,-1,sizeof dp);
+		l--;
+		change(l);
+		ll res1=dfs((int)bit.size()-1,0,true);
+		change(r);
+		ll res2=dfs((int)bit.size()-1,0,true);
+		cout<<r-l-res2+res1<<endl;
+	}
 	return 0;
 }
 

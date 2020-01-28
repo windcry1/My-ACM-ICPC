@@ -58,7 +58,7 @@ int main(){
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
 	int n=5;
-	cout<<(n*n+n+2)/2<<endl;
+	cout<<(n*n+n+2)/2+6*5+1<<endl;
 	return 0;
 }
 

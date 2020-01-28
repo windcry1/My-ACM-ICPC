@@ -53,7 +53,7 @@ const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
 pll p[200010];
-set<pll> st;
+priority_queue<pll,vector<pll>,greater<pll> > q;
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
@@ -64,13 +64,13 @@ int main(){
 	sort(p+1,p+1+n);
 	ll sum=0,res=0;
 	for(int i=1;i<=n;i++){
-		while(!st.empty() and st.begin()->first<p[i].first){
-			sum-=st.begin()->second;
-			st.erase(st.begin());
+		while(!q.empty() and q.top().first<p[i].first){
+			sum-=q.top().second;
+			q.pop();
 		}
 		ll temp=max(0LL,(ll)ceil(1.0*(p[i].second-sum)/a));
 		res+=temp;
-		st.insert(make_pair(p[i].first+2*d,temp*a));
+		q.push(make_pair(p[i].first+2*d,temp*a));
 		sum+=temp*a;
 	}
 	cout<<res<<endl;
