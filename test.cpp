@@ -2,8 +2,10 @@
 >>> Author: WindCry1
 >>> Mail: lanceyu120@gmail.com
 >>> Website: https://windcry1.com
->>> Date: 12/12/2019 2:45:01 PM
+>>> Date: 12/30/2019 11:03:37 PM
 *************************************************************************/
+//#pragma GCC optimize(3)
+//#pragma GCC diagnostic error "-std=c++11"
 #include <cstring>
 #include <cmath>
 #include <cstdio>
@@ -28,33 +30,46 @@
 #include <unordered_map>
 #include <unordered_set>
 #endif
+#define endl '\n'
+#define ALL(x) x.begin(),x.end()
 #define ll long long
 #define ull unsigned long long
+#ifdef WindCry1
+#define DEBUG(x) cout<<#x<<" : "<<x<<endl;
+#endif
+#define lowbit(x) x&(-x)
+#define ls u<<1
+#define rs u<<1|1
 using namespace std;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-const double clf = 1e-8;
-const int MMAX = 0x7fffffff;
+template<typename T> inline T MIN(const T &a,const T &b) {return a<b?a:b;}
+template<typename T> inline T MAX(const T &a,const T &b) {return a>b?a:b;}
+template<typename T,typename ...Args> inline T MIN(const T &a,const T &b,Args ...args) {return MIN(MIN(a,b),args...);}
+template<typename T,typename ...Args> inline T MAX(const T &a,const T &b,Args ...args) {return MAX(MAX(a,b),args...);}
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+typedef pair<double,double> pdd;
+const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-ostream& operator <<(ostream &out, pii &p){
-	return out<<p.first<<" "<<p.second;
-}
-istream& operator >>(istream &in, pii &p){
-	return in>>p.first>>p.second;
-}
+int dp[40][2];
 int main(){
-	ios::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
-	//freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
-	//freopen("C:\\Users\\LENOVO\\Desktop\\out.txt","w",stdout);
-	//ifstream cin("C:\\Users\\LENOVO\\Desktop\\out.txt");
-	//ofstream cout("C:\\Users\\LENOVO\\Desktop\\in.txt");
-	string s;
-	cin>>s;
-	cout<<s<<endl;
+	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+#ifdef WindCry1
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+#endif
+	dp[1][0]=1;
+	dp[1][1]=1;
+	for(int i=2;i<=30;i++){
+		dp[i][1]=dp[i-1][0];
+		dp[i][0]=dp[i-1][0]+dp[i-1][1];
+	}
+	cout<<dp[30][0]+dp[30][1]<<endl;
+	int res=0;
+	for(int i=0;i<(1<<30);i++)
+		if(!((i<<1)&i)) res++;
+	cout<<res<<endl;
 	return 0;
 }
+
 
