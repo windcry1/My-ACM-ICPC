@@ -31,7 +31,6 @@
 #include <unordered_set>
 #endif
 #define endl '\n'
-#define ALL(x) x.begin(),x.end()
 #define ll long long
 #define ull unsigned long long
 #ifdef WindCry1
@@ -50,17 +49,19 @@ typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
-const int mod = 1e9+7;
+const ll mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-const double pi=acos(-1.0);
+int dp[1010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	double x=10;
-	cout<<sin(40*pi/180)*sin(40*pi/180)*sin((110-x)*pi/180)-sin(30*pi/180)*sin(70*pi/180)*sin((70-x)*pi/180);
+	int n,m;cin>>n>>m;
+	for(int i=1;i<=n;i++) dp[i]=i;
+	for(int i=2;i<=2*m;i++)
+		for(int j=1;j<=n;j++)
+			dp[j]=(dp[j-1]+dp[j])%mod;
+	cout<<dp[n]<<endl;
 	return 0;
 }
-
-

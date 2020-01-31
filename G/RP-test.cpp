@@ -52,14 +52,17 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-const double pi=acos(-1.0);
+
 int main(){
-	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+	//ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	double x=10;
-	cout<<sin(40*pi/180)*sin(40*pi/180)*sin((110-x)*pi/180)-sin(30*pi/180)*sin(70*pi/180)*sin((70-x)*pi/180);
+	char m[11],n[1000001];
+	char *p;
+	int i;
+	gets(n);
+	p=n;
 	return 0;
 }
 
