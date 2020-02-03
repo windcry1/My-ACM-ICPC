@@ -29,13 +29,14 @@ ll d[2000010];
 set<ll> st;
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
-	ll a;ll b;ll c;
+	ll a,b,c;
 	cin>>a>>b>>c;
 	d[0]=1;
+	st.insert(1);
 	bool flag=0;int res=0;
-	for(int i=1;i=2000001;i++){
+	for(int i=1;i<=2000001;i++){
 		if(i==2000001) flag=1;
-		d[i]=(a*d[i-1]+d[i]%b)%c;
+		d[i]=(a*d[i-1]+d[i-1]%b)%c;
 		if(st.count(d[i])==1) {
 			res=i;
 			break;

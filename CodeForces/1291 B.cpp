@@ -31,6 +31,7 @@
 #include <unordered_set>
 #endif
 #define endl '\n'
+#define ALL(x) x.begin(),x.end()
 #define ll long long
 #define ull unsigned long long
 #ifdef WindCry1
@@ -51,21 +52,25 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int a[300010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	ll n=1000,k=500;
-	ll res=2*n*(n-1)%mod;
-	for(int i=1;i<=k;i++){
-		for(int j=1;j<=k;j++){
-			if(i*i+j*j>k*k) break;
-			if(__gcd(i,j)==1) res=(res+(n-i)*(n-j)*2)%mod;
+	int T;cin>>T;while(T--){
+		int n;cin>>n;
+		for(int i=0;i<n;i++) cin>>a[i];
+		bool flag=false;
+		for(int i=0;i<n;i++){
+			if(a[i]<min(i,n-i-1)) flag=true;
 		}
+		if(!(n&1)){
+			if(a[n/2]==min(n/2,n-n/2-1) and a[n/2-1]==min(n/2-1,n-(n/2-1)-1))
+			flag=true;
+		}
+		cout<<(flag?"No":"Yes")<<endl;
 	}
-	cout<<res<<endl;
 	return 0;
 }
 

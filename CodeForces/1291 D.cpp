@@ -31,6 +31,7 @@
 #include <unordered_set>
 #endif
 #define endl '\n'
+#define ALL(x) x.begin(),x.end()
 #define ll long long
 #define ull unsigned long long
 #ifdef WindCry1
@@ -51,21 +52,28 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int pos[200010][26];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	ll n=1000,k=500;
-	ll res=2*n*(n-1)%mod;
-	for(int i=1;i<=k;i++){
-		for(int j=1;j<=k;j++){
-			if(i*i+j*j>k*k) break;
-			if(__gcd(i,j)==1) res=(res+(n-i)*(n-j)*2)%mod;
-		}
+	string s;int q;cin>>s>>q;
+	for(int i=0;i<s.size();i++){
+		for(int j=0;j<26;j++) pos[i+1][j]=pos[i][j];
+		pos[i+1][s[i]-'a']++;
 	}
-	cout<<res<<endl;
+	while(q--){
+		int l,r;cin>>l>>r;
+		if(s[l-1]!=s[r-1] or l==r) {
+			cout<<"Yes"<<endl;
+			continue;
+		}
+		int cnt=0;
+		for(int i=0;i<26;i++)
+			if(pos[r][i]-pos[l-1][i]>0) ++cnt;
+		cout<<(cnt>=3?"Yes":"No")<<endl;
+	}
 	return 0;
 }
 

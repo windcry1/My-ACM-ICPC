@@ -25,25 +25,33 @@
 #define ll long long
 using namespace std;
 const int INF = 0x3f3f3f3f;
-ll d[2000010];
-set<ll> st;
+int pos[200010][30];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
-	ll a;ll b;ll c;
-	cin>>a>>b>>c;
-	d[0]=1;
-	bool flag=0;int res=0;
-	for(int i=1;i=2000001;i++){
-		if(i==2000001) flag=1;
-		d[i]=(a*d[i-1]+d[i]%b)%c;
-		if(st.count(d[i])==1) {
-			res=i;
-			break;
-		}
-		else st.insert(d[i]);
+	string s;
+	cin>>s;
+	for(int i=0;i<s.size();i++){
+		for(int j=0;j<26;j++) pos[i+1][j]=pos[i][j];
+		 pos[i+1][s[i]-'a']++;
 	}
-	if(flag) cout<<-1<<endl;
-	else cout<<res<<endl;
+	int t;
+	cin>>t;
+	for(int i=1;i<=t;i++){
+		int l,r;
+		cin>>l>>r;
+		if(l==r) cout<<"Yes"<<endl;
+		else{
+			vector<int> v;
+			for(int j=0;j<26;j++){
+				if(pos[r][j]-pos[l-1][j]>0) v.push_back(pos[r][j]-pos[l-1][j]);
+			}
+			if(v.size()==1 && v[0]>=2) cout<<"No"<<endl;
+			else if(v.size()==2){
+				if(s[l-1]!=s[r-1]) cout<<"Yes"<<endl;
+				else cout<<"No"<<endl;
+			}
+			else cout<<"Yes"<<endl;
+		}
+	}
     return 0;
 }
-

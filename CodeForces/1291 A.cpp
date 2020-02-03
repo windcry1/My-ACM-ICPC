@@ -31,6 +31,7 @@
 #include <unordered_set>
 #endif
 #define endl '\n'
+#define ALL(x) x.begin(),x.end()
 #define ll long long
 #define ull unsigned long long
 #ifdef WindCry1
@@ -55,17 +56,31 @@ const int dir[4][2]={-1,0,1,0,0,-1,0,1};
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	ll n=1000,k=500;
-	ll res=2*n*(n-1)%mod;
-	for(int i=1;i<=k;i++){
-		for(int j=1;j<=k;j++){
-			if(i*i+j*j>k*k) break;
-			if(__gcd(i,j)==1) res=(res+(n-i)*(n-j)*2)%mod;
+	int T;cin>>T;while(T--){
+		int n;cin>>n;
+		string s;cin>>s;
+		int res=0,pos=-1,pos2=-1;
+		for(int i=0;i<n;i++){
+			res=(res+s[i])%2;
+			if(res%2==1){
+				pos=i;
+				break;
+			}
 		}
+		for(int i=n-1;i>=0;i--){
+			if(s[i]%2==1){
+				pos2=i;
+				break;
+			}
+		}
+		if(pos2<=pos){
+			cout<<-1<<endl;
+			continue;
+		}
+		cout<<s.substr(0,pos+1)+s[pos2]<<endl;
 	}
-	cout<<res<<endl;
 	return 0;
 }
 
