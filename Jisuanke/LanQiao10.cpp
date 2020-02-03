@@ -68,14 +68,17 @@ int bfs(int x1,int y1,int x2,int y2){
 		if(t.x==x2 and t.y==y2) return t.step;
 		for(int i=0;i<4;i++){
 			int dx=t.x+dir[i][0],dy=t.y+dir[i][1];
-			if(dx>=0 and dx<=n and dy>=0 and dy<=m and !vis[dx][dy] and a[dx][dy]=='.'){
+			if(dx>=1 and dx<=n and dy>=1 and dy<=m and !vis[dx][dy] and a[dx][dy]=='.'){
 				if(flag[dx][dy]) {
-					pii temp=mp[make_pair(dx,dy)];
-					vis[dx][dy]=1;
-					if(dx==x2 and dy==y2) return t.step+1;
-					if(!vis[temp.first][temp.second]){
-						vis[temp.first][temp.second]=1;
-						q.push(node(temp.first,temp.second,t.step+1));
+					while(flag[dx][dy] and !vis[dx][dy] and a[dx][dy]=='.') {
+						vis[dx][dy]=1;
+						pii temp=mp[make_pair(dx,dy)];
+						dx=temp.first;
+						dy=temp.second;
+					}
+					if(!vis[dx][dy] and a[dx][dy]=='.'){
+						vis[dx][dy]=1;
+						q.push(node(dx,dy,t.step+1));
 					}
 				}
 				else{
@@ -108,5 +111,3 @@ int main(){
 	else cout<<res<<endl;
 	return 0;
 }
-
-

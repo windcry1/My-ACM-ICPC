@@ -52,6 +52,7 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
+string s;ll m;
 ll qmi(ll a,ll b,ll p){
 	ll res=1;
 	while(b){
@@ -62,7 +63,7 @@ ll qmi(ll a,ll b,ll p){
 	return res;
 }
 bool judge(int i,int j,ll m,ll ans,string s){
-	ans=(ans+(s[i]-s[j])*qmi(26LL,(ll)s.size()-i-1,m)+(s[j]-s[i])*qmi(26LL,(ll)s.size()-j-1,m)+2000*m)%m;
+	ans=(ans+(s[j]-s[i])*qmi(26,(int)s.size()-i-1,m)+(s[i]-s[j])*qmi(26,(int)s.size()-j-1,m)+20000*m)%m;
 	return (ans==0LL?true:false);
 }
 signed main(){
@@ -70,7 +71,7 @@ signed main(){
 #ifdef WindCry1
 	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
-	string s;ll m;cin>>s>>m;
+	cin>>s>>m;
 	ll ans=0;
 	for(auto c:s) ans=(ans*26+c-'A')%m;
 	if(ans==0LL){
@@ -81,7 +82,6 @@ signed main(){
 	int posl,posr;
 	for(int i=0;i<(int)s.size();i++){
 		for(int j=i+1;j<(int)s.size();j++){
-			swap(s[i],s[j]);
 			if(judge(i,j,m,ans,s)){
 				if(res=="") {
 					res=s;
@@ -94,12 +94,10 @@ signed main(){
 					posr=j;
 				}
 			}
-			swap(s[i],s[j]);
 		}
 	}
 	if(res=="") cout<<"-1 -1"<<endl;
 	else cout<<posl+1<<" "<<posr+1<<endl;
 	return 0;
 }
-
 
