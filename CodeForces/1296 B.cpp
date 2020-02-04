@@ -43,7 +43,7 @@
 using namespace std;
 template<typename T> inline T MIN(const T &a,const T &b) {return a<b?a:b;}
 template<typename T> inline T MAX(const T &a,const T &b) {return a>b?a:b;}
-template<typename T,typename ...Args> inline T min(const T &a,const T &b,Args ...args) {return MIN(MIN(a,b),args...);}
+template<typename T,typename ...Args> inline T MIN(const T &a,const T &b,Args ...args) {return MIN(MIN(a,b),args...);}
 template<typename T,typename ...Args> inline T MAX(const T &a,const T &b,Args ...args) {return MAX(MAX(a,b),args...);}
 typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
@@ -58,7 +58,15 @@ int main(){
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-
+	int T;cin>>T;while(T--){
+		ll s;cin>>s;
+		ll res=s;
+		while(s>=10){
+			res+=s/10;
+			s=s%10+s/10;
+		}
+		cout<<res<<endl;
+	}
 	return 0;
 }
 

@@ -43,7 +43,7 @@
 using namespace std;
 template<typename T> inline T MIN(const T &a,const T &b) {return a<b?a:b;}
 template<typename T> inline T MAX(const T &a,const T &b) {return a>b?a:b;}
-template<typename T,typename ...Args> inline T min(const T &a,const T &b,Args ...args) {return MIN(MIN(a,b),args...);}
+template<typename T,typename ...Args> inline T MIN(const T &a,const T &b,Args ...args) {return MIN(MIN(a,b),args...);}
 template<typename T,typename ...Args> inline T MAX(const T &a,const T &b,Args ...args) {return MAX(MAX(a,b),args...);}
 typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
@@ -52,13 +52,27 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+ll cnt[200010];
+vector<ll> res;
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-
+	ll n,a,b,k;cin>>n>>a>>b>>k;
+	for(ll i=1,t;i<=n;i++) {
+		cin>>t;
+		t=(t%(a+b)==0?a+b:t%(a+b));
+		res.push_back(ceil(1.0*t/a)-1);
+	}
+	sort(ALL(res));
+	ll ans=0,now=0;
+	for(int i=0;i<n;i++){
+		now+=res[i];
+		if(now>k) break;
+		ans++;
+	}
+	cout<<ans<<endl;
 	return 0;
 }
 
