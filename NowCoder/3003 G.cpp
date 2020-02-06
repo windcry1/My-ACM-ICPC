@@ -50,7 +50,7 @@ typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
-const ll mod = 1e9+7;
+const ll mod = 1e9+19;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
 ll qmi(ll a,ll b){
 	ll res=1;
@@ -69,7 +69,7 @@ int main(){
 	int T;cin>>T;
 	while(T--){
 		ll a,b,c,d,e,f,g;cin>>a>>b>>c>>d>>e>>f>>g;
-		ll res=qmi(a,d)+qmi(b,e)+qmi(c,f);
+		ll res=(qmi(a,d)+qmi(b,e)+qmi(c,f))%mod;
 		g%=mod;
 		cout<<(res==g?"Yes":"No")<<endl;
 	} 
