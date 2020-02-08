@@ -32,6 +32,7 @@
 #endif
 #define endl '\n'
 #define ALL(x) x.begin(),x.end()
+#define MP(x,y) make_pair(x,y)
 #define ll long long
 #define ull unsigned long long
 #ifdef WindCry1
@@ -50,22 +51,28 @@ typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
-const int mod = 1e9+7;
+const ll mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-ll a[300010],dp[300010];
+char s[110][110];
+ll dp[110][110];
+int n,m;
+ll dfs(int x,int y){
+	if(dp[x][y]!=-1) return dp[x][y];
+	if(x<0 or x>=n or y<0 or y>=m) return 0;
+	if(s[x][y]=='R') return dp[x][y]=dfs(x,y+1)%mod;
+	if(s[x][y]=='D') return dp[x][y]=dfs(x+1,y)%mod;
+	if(s[x][y]=='B') return dp[x][y]=(dfs(x+1,y)+dfs(x,y+1))%mod;
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	int n,k;cin>>n>>k;
-	for(int i=1;i<=n;i++) cin>>a[i];
-	sort(a+1,a+1+n);
-	dp[k]=a[k]-a[1];
-	for(int i=k+1;i<2*k;i++) dp[i]=dp[i-1]+a[i]-a[i-1];
-	for(int i=2*k;i<=n;i++)
-		dp[i]=min(dp[i-1]+a[i]-a[i-1],dp[i-k]+a[i]-a[i-k+1]);
-	cout<<dp[n]<<endl;
+	cin>>n>>m;
+	for(int i=0;i<n;i++) cin>>s[i];
+	memset(dp,-1,sizeof dp);
+	dp[n-1][m-1]=1;
+	cout<<dfs(0,0)%mod<<endl;
 	return 0;
 }
 

@@ -31,12 +31,9 @@
 #include <unordered_set>
 #endif
 #define endl '\n'
-#define ALL(x) x.begin(),x.end()
 #define ll long long
 #define ull unsigned long long
-#ifdef WindCry1
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
-#endif
 #define lowbit(x) x&(-x)
 #define ls u<<1
 #define rs u<<1|1
@@ -52,20 +49,31 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-ll a[300010],dp[300010];
+int a[22];
+bool isprime(int n){
+	for(int i=2;i<=sqrt(n);i++){
+		if(n%i==0) return 0;
+	}
+	return 1;
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
 #endif
 	int n,k;cin>>n>>k;
-	for(int i=1;i<=n;i++) cin>>a[i];
-	sort(a+1,a+1+n);
-	dp[k]=a[k]-a[1];
-	for(int i=k+1;i<2*k;i++) dp[i]=dp[i-1]+a[i]-a[i-1];
-	for(int i=2*k;i<=n;i++)
-		dp[i]=min(dp[i-1]+a[i]-a[i-1],dp[i-k]+a[i]-a[i-k+1]);
-	cout<<dp[n]<<endl;
+	int res=0;
+	for(int i=0;i<n;i++) cin>>a[i];
+	for(int state=0;state<(1<<n);state++){
+		if(__builtin_popcount(state)==k){
+			int ans=0;
+			for(int i=0;i<n;i++)
+				if(state&(1<<i))
+					ans+=a[i];
+			if(isprime(ans)) ++res;
+		}
+	}
+	cout<<res<<endl;
 	return 0;
 }
 

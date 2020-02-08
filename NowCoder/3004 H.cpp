@@ -32,6 +32,7 @@
 #endif
 #define endl '\n'
 #define ALL(x) x.begin(),x.end()
+#define MP(x,y) make_pair(x,y)
 #define ll long long
 #define ull unsigned long long
 #ifdef WindCry1
@@ -52,20 +53,43 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-ll a[300010],dp[300010];
+vector<int> prime;
+bool vis[100010],is[100010];
+int cnt[100010];
+void get(int n){
+	memset(vis,0,sizeof(vis));
+	for(int i=2;i<n;i++){
+		if(!vis[i]) prime.push_back(i);
+		for(int j=0;j<(int)prime.size() and i*prime[j]<n;j++){
+			vis[i*prime[j]]=1;
+			if(i%prime[j]==0) break;
+		}
+	}
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	int n,k;cin>>n>>k;
-	for(int i=1;i<=n;i++) cin>>a[i];
-	sort(a+1,a+1+n);
-	dp[k]=a[k]-a[1];
-	for(int i=k+1;i<2*k;i++) dp[i]=dp[i-1]+a[i]-a[i-1];
-	for(int i=2*k;i<=n;i++)
-		dp[i]=min(dp[i-1]+a[i]-a[i-1],dp[i-k]+a[i]-a[i-k+1]);
-	cout<<dp[n]<<endl;
+	int n,m;cin>>n>>m;
+	get(n+1);
+	is[1]=1;
+	for(auto i:prime) is[i]=1;
+	for(int i=1;i<=n;i++){
+		int res=0;
+		for(int j=1;j<=sqrt(i);j++){
+			if(i%j==0){
+				if(!is[j]) res++;
+				if(!is[i/j]) res++;
+				if(!is[j] and i==j*j) res--;
+			}
+		}
+		cnt[res]++;
+	}
+	while(m--){
+		int t;cin>>t;
+		cout<<cnt[t]<<endl;
+	}
 	return 0;
 }
 

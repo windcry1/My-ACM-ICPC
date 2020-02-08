@@ -32,6 +32,7 @@
 #endif
 #define endl '\n'
 #define ALL(x) x.begin(),x.end()
+#define MP(a,b) make_pair(a,b)
 #define ll long long
 #define ull unsigned long long
 #ifdef WindCry1
@@ -52,20 +53,31 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-ll a[300010],dp[300010];
+bool vis[31][2];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	int n,k;cin>>n>>k;
-	for(int i=1;i<=n;i++) cin>>a[i];
-	sort(a+1,a+1+n);
-	dp[k]=a[k]-a[1];
-	for(int i=k+1;i<2*k;i++) dp[i]=dp[i-1]+a[i]-a[i-1];
-	for(int i=2*k;i<=n;i++)
-		dp[i]=min(dp[i-1]+a[i]-a[i-1],dp[i-k]+a[i]-a[i-k+1]);
-	cout<<dp[n]<<endl;
+	int n;cin>>n;
+	vector<int> v(n);
+	for(auto &i:v) cin>>i;
+	sort(ALL(v)); v.erase(unique(ALL(v)),v.end());
+	n=v.size();
+	if(n==1) {
+		cout<<0<<endl;
+		return 0;
+	}
+	for(int i=0;i<=30;i++){
+		int res=0;
+		for(int j=0;j<n;j++)
+			if(v[j]&(1<<i)) ++res;
+		if(res>0 and res<n) {
+			cout<<(n-1)*(1LL<<i)<<endl;
+			return 0;
+		}
+	}
+	
 	return 0;
 }
 

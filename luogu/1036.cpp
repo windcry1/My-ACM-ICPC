@@ -31,9 +31,13 @@
 #include <unordered_set>
 #endif
 #define endl '\n'
+#define ALL(x) x.begin(),x.end()
+#define MP(x,y) make_pair(x,y)
 #define ll long long
 #define ull unsigned long long
+#ifdef WindCry1
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
+#endif
 #define lowbit(x) x&(-x)
 #define ls u<<1
 #define rs u<<1|1
@@ -49,30 +53,29 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-int a[22];
-bool isprime(int n){
-	for(int i=2;i<=sqrt(n);i++){
-		if(n%i==0) return 0;
+int a[22],res,n,k;
+bool isprime(int x){
+	for(int i=2;i<=sqrt(x);i++){
+		if(x%i==0) return false;
 	}
-	return 1;
+	return true;
+}
+void dfs(int pos,int now,int sum){
+	if(pos==n){
+		if(now==k and isprime(sum)) ++res;
+		return ;
+	}
+	dfs(pos+1,now,sum);
+	dfs(pos+1,now+1,sum+a[pos]);
 }
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	freopen("C:\\Users\\LENOVO\\Desktop\\in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	int n,k;cin>>n>>k;
-	int res=0;
+	cin>>n>>k;
 	for(int i=0;i<n;i++) cin>>a[i];
-	for(int state=0;state<(1<<n);state++){
-		if(__builtin_popcount(state)==k){
-			int ans=0;
-			for(int i=0;i<n;i++)
-				if(state&(1<<i))
-					ans+=a[i];
-			if(isprime(ans)) ++res;
-		}
-	}
+	dfs(0,0,0);
 	cout<<res<<endl;
 	return 0;
 }
