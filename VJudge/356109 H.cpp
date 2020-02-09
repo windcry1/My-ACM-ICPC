@@ -4,7 +4,7 @@
 >>> Website: https://windcry1.com
 >>> Date: 12/30/2019 11:03:37 PM
 *************************************************************************/
-//#pragma GCC optimize(3)
+//#pragma GCC optimize(2)
 //#pragma GCC diagnostic error "-std=c++11"
 #include <cstring>
 #include <cmath>
@@ -51,26 +51,58 @@ typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
-const int mod = 1e9+7;
+const ll mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-pii a[2010];
+struct mat{
+	ll a[9][9]={
+		1,0,0,1,0,0,1,0,0,
+		1,0,0,0,0,0,0,0,0,
+		1,0,0,0,0,0,0,0,0,
+		0,1,0,0,1,0,0,1,0,
+		0,1,0,0,1,0,0,0,0,
+		0,1,0,0,0,0,0,0,0,
+		0,0,1,0,0,1,0,0,1,
+		0,0,1,0,0,1,0,0,1,
+		0,0,1,0,0,1,0,0,1,
+	};
+};
+mat qc(mat a,mat b){
+	mat res;memset(res.a,0,sizeof res.a);
+	for(int i=0;i<9;i++){
+		for(int j=0;j<9;j++){
+			for(int k=0;k<9;k++){
+				res.a[i][j]=(res.a[i][j]+a.a[i][k]*b.a[k][j])%mod;
+			}
+		}
+	}
+	return res;
+}
+mat qmi(mat a,ll n){
+	mat res;
+	for(int i=0;i<9;i++)
+		for(int j=0;j<9;j++)
+			if(i==j) res.a[i][j]=1;
+			else res.a[i][j]=0;
+	while(n){
+		if(n&1) res=qc(res,a);
+		a=qc(a,a);
+		n>>=1;
+	}
+	return res;
+}
+
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	for(int i=0;i<n;i++) cin>>a[i].first>>a[i].second;
-	sort(a,a+n);
+	ll n;cin>>n;
+	mat x;
+	x=qmi(x,n-2);
 	ll res=0;
-	for(int i=0;i<n;i++){
-		if(a[i].first==a[i+1].first){
-			for(int j=i-1;j>=1;j--){
-				if(a[i].first!=a[j].first and a[j].first==a[j-1].first and a[i+1].second==a[j].second and a[i].second==a[j-1].second) ++res;
-				if(a[j].second<=a[i+1].second and a[i].second <= a[j].second) break;
-			}
-		}
-	}
+	for(int i=0;i<9;i++)
+		for(int j=0;j<9;j++)
+			res=(res+x.a[i][j])%mod;
 	cout<<res<<endl;
 	return 0;
 }
