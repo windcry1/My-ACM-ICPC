@@ -81,6 +81,7 @@ signed main(){
 		edit(color[i],L[color[i]]*R[color[i]]-getsum(color[i],color[i]));
 		cout<<getsum(l[i],r[i])<<" ";
 		L[color[i]]++;
+		edit(color[i],L[color[i]]*R[color[i]]-getsum(color[i],color[i]));
 	}
 	return 0;
 }
