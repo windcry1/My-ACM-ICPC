@@ -23,48 +23,56 @@
 #include <unordered_set>
 #endif
 #define ll long long
-#define int long long
+#define int long long 
+#define lowbit(x) x&(-x)
 using namespace std;
 const int INF = 0x3f3f3f3f;
-int s[300010],a[300010],c[60010];
-int f[4][300010];
-int n,m; 
-int val(int x){
+int a[1000010],s[1000010];
+int bit1[1000010],bit2[1000010];
+int num1[1000010],num2[1000010];
+int n,m;
+int cal(int x){
 	return lower_bound(s+1,s+1+m,x)-s;
 }
-int lowbit(int x){
-	return (-x)&x;
-}
-void edit(int pos,int val){
+void edit1(int pos,int val){
 	for(int i=pos;i<=n;i+=lowbit(i)){
-		c[i]+=val;
+		bit1[i]+=val;
 	}
 }
-int query(int pos){
+int query1(int pos){
 	int res=0;
 	for(int i=pos;i>=1;i-=lowbit(i)){
-		res+=c[i];
+		res+=bit1[i];
+	}
+	return res;
+}
+void edit2(int pos,int val){
+	for(int i=pos;i<=n;i+=lowbit(i)){
+		bit2[i]+=val;
+	}
+}
+int query2(int pos){
+	int res=0;
+	for(int i=pos;i>=1;i-=lowbit(i)){
+		res+=bit2[i];
 	}
 	return res;
 }
 signed main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
-	//int n,m;
 	cin>>n;
 	for(int i=1;i<=n;i++) cin>>a[i],s[i]=a[i];
 	sort(s+1,s+1+n);
 	m=unique(s+1,s+1+n)-s-1;
-	for(int i=1;i<=n;i++) f[1][i]=1,a[i]=val(a[i]);
-	for(int i=2;i<=3;i++){
-		memset(c,0,sizeof c);
-		for(int j=1;j<=n;j++){
-			f[i][j]=query(a[j]-1);
-			edit(a[j],f[i-1][j]);
-		}
+	for(int i=1;i<=n;i++) a[i]=cal(a[i]),edit1(a[i],1);
+	for(int i=1;i<=n;i++){
+		edit1(a[i],-1);
+		num2[i]=(query2(a[i]));
+		num1[i]=query1(m)-query1(a[i]-1);
+		edit2(a[i],1);
 	}
-	int sum=0;
-	for(int i=1;i<=n;i++) sum+=f[3][i];
-	cout<<sum<<endl;
+	for(int i=1;i<=n;i++) cout<<num1[i]<<" \n"[i==n];
+	for(int i=1;i<=n;i++) cout<<num2[i]<<" \n"[i==n];
     return 0;
 }
 
