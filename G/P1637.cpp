@@ -35,7 +35,7 @@ int cal(int x){
 	return lower_bound(s+1,s+1+m,x)-s;
 }
 void edit1(int pos,int val){
-	for(int i=pos;i<=n;i+=lowbit(i)){
+	for(int i=pos;i<=m;i+=lowbit(i)){
 		bit1[i]+=val;
 	}
 }
@@ -47,7 +47,7 @@ int query1(int pos){
 	return res;
 }
 void edit2(int pos,int val){
-	for(int i=pos;i<=n;i+=lowbit(i)){
+	for(int i=pos;i<=m;i+=lowbit(i)){
 		bit2[i]+=val;
 	}
 }
@@ -67,12 +67,12 @@ signed main(){
 	for(int i=1;i<=n;i++) a[i]=cal(a[i]),edit1(a[i],1);
 	for(int i=1;i<=n;i++){
 		edit1(a[i],-1);
-		num2[i]=(query2(a[i]));
-		num1[i]=query1(m)-query1(a[i]-1);
+		num2[i]=(query2(a[i]-1));
+		num1[i]=query1(m)-query1(a[i]);
 		edit2(a[i],1);
 	}
-	for(int i=1;i<=n;i++) cout<<num1[i]<<" \n"[i==n];
 	for(int i=1;i<=n;i++) cout<<num2[i]<<" \n"[i==n];
+	for(int i=1;i<=n;i++) cout<<num1[i]<<" \n"[i==n];
     return 0;
 }
 

@@ -50,23 +50,46 @@ typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
-const int INF = 0x3f3f3f3f;
-const int mod = 1e9+7;
+const ll INF = 0x3f3f3f3f3f3f3f3f;
+const ll mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-int dp[1000010][2];
+
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	string s;cin>>s;
-	dp[0][0]=s[0]-'0';
-	dp[0][1]=11+'0'-s[0];
-	for(int i=1;i<s.size();i++){
-		dp[i][0]=min(dp[i-1][0],dp[i-1][1])+s[i]-'0';
-		dp[i][1]=min(dp[i-1][0]+11+'0'-s[i],dp[i-1][1]+9+'0'-s[i]);
+	int n;ll k;cin>>n>>k;
+	vector<ll> a(n);for(auto &i:a) cin>>i;
+	sort(ALL(a));
+	ll L=-INF,R=INF;
+	while(L+1!=R){
+		ll MID=(L+R)>>1;
+		ll res=0;
+		for(int i=0;i<n;i++){
+			if(a[i]<0){
+				int l=i,r=n;
+				while(l+1!=r){
+					int mid=(l+r)>>1;
+					if(a[i]*a[mid]<=MID) r=mid;
+					else l=mid;
+				}
+				res+=n-r;
+			}
+			else{
+				int l=i,r=n;
+				while(l+1!=r){
+					int mid=(l+r)>>1;
+					if(a[i]*a[mid]<=MID) l=mid;
+					else r=mid;
+				}
+				res+=l-i;
+			}
+		}
+		if(res<k) L=MID;
+		else R=MID;
 	}
-	cout<<min(dp[(int)s.size()-1][0],dp[(int)s.size()-1][1])<<endl;
+	cout<<R<<endl;
 	return 0;
 }
 

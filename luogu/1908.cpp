@@ -53,20 +53,33 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-int dp[1000010][2];
+ll bit[500010],a[500010];
+vector<int> s;
+inline void edit(int pos,ll val){
+	for(int i=pos;i<=s.size();i+=lowbit(i)) bit[i]+=val;
+}
+inline ll query(int pos){
+	ll res=0;
+	for(int i=pos;i;i-=lowbit(i)) res+=bit[i];
+	return res;
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	string s;cin>>s;
-	dp[0][0]=s[0]-'0';
-	dp[0][1]=11+'0'-s[0];
-	for(int i=1;i<s.size();i++){
-		dp[i][0]=min(dp[i-1][0],dp[i-1][1])+s[i]-'0';
-		dp[i][1]=min(dp[i-1][0]+11+'0'-s[i],dp[i-1][1]+9+'0'-s[i]);
+	int n;cin>>n;
+	s.resize(n);
+	for(int i=0;i<n;i++) cin>>a[i],s[i]=a[i];
+	sort(ALL(s));s.erase(unique(ALL(s)),s.end());
+	for(int i=0;i<n;i++) a[i]=lower_bound(ALL(s),a[i])-s.begin()+1;
+	//for(int i=0;i<n;i++) cout<<a[i]<<" ";cout<<endl;
+	ll res=0;
+	for(int i=0;i<n;i++){
+		res+=query(s.size())-query(a[i]);
+		edit(a[i],1);
 	}
-	cout<<min(dp[(int)s.size()-1][0],dp[(int)s.size()-1][1])<<endl;
+	cout<<res<<endl;
 	return 0;
 }
 

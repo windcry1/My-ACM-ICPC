@@ -53,20 +53,52 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-int dp[1000010][2];
+struct Edge{
+	int to,next;
+}edge[400010];
+int head[200010],tot,n,m,k,a[200010],dis1[200010],dis2[200010],vis[200010];
+inline void add_edge(int u,int v){
+	edge[++tot].to=v; edge[tot].next=head[u]; head[u]=tot;
+}
+void bfs(int x,int *dis){
+	memset(vis,false,sizeof vis);
+	dis[x]=0;
+	queue<pii> q;
+	vis[x]=true;
+	q.emplace(x,0);
+	while(!q.empty()){
+		pii t=q.front();q.pop();
+		dis[t.first]=t.second;
+		int u=t.first;
+		for(int i=head[u];i;i=edge[i].next){
+			int to=edge[i].to;
+			if(!vis[to]) q.emplace(to,t.second+1),vis[to]=true;
+		}
+	}
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	string s;cin>>s;
-	dp[0][0]=s[0]-'0';
-	dp[0][1]=11+'0'-s[0];
-	for(int i=1;i<s.size();i++){
-		dp[i][0]=min(dp[i-1][0],dp[i-1][1])+s[i]-'0';
-		dp[i][1]=min(dp[i-1][0]+11+'0'-s[i],dp[i-1][1]+9+'0'-s[i]);
+	cin>>n>>m>>k;
+	for(int i=1;i<=k;i++) cin>>a[i];
+	for(int i=0;i<m;i++){
+		int u,v;cin>>u>>v;
+		add_edge(u,v);
+		add_edge(v,u);
 	}
-	cout<<min(dp[(int)s.size()-1][0],dp[(int)s.size()-1][1])<<endl;
+	memset(dis1,-1,sizeof dis1);
+	memset(dis2,-1,sizeof dis2); 
+	bfs(1,dis1);
+	bfs(n,dis2);
+	sort(a+1,a+1+k,[](const int &u,const int &v){return dis1[u]<dis1[v] or (dis1[u]==dis1[v] and dis2[u]>dis2[v]);});
+	int ans=0,tmp=-INF;
+	for(int i=1;i<=k;i++){
+		ans=max(ans,dis2[a[i]]+1+tmp);
+		tmp=max(tmp,dis1[a[i]]);
+	}
+	cout<<min(ans,dis1[n])<<endl;
 	return 0;
 }
 
