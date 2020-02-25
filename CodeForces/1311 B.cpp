@@ -53,26 +53,33 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-struct BIT{
-	ll bit[100010];
-	void edit(int pos,ll val){
-		for(int i=pos;i<=200000;i+=lowbit(i)) bit[i]+=val;
-	}
-	ll query(int pos){
-		ll res=0;
-		for(int i=pos;i;i-=lowbit(i)) res+=bit[i];
-		return res;
-	}
-	ll getsum(int l,int r){
-		return query(r)-query(l-1);
-	}
-}b1;
+int a[110],p[110];
+void insertion_sort(int arr[],int len){
+    
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	cout<<(sizeof b1)<<endl;
+	int T;cin>>T;while(T--){
+		int n,m;cin>>n>>m;
+		for(int i=1;i<=n;i++) cin>>a[i];
+		set<int> st;
+		for(int i=1,p;i<=m;i++) cin>>p,st.insert(p);
+		bool ok=true;
+		for(int i=2;i<=n;i++){
+        	int key=a[i];
+	        int j=i-1;
+	        while((j>=0) && (key<a[j])){
+                a[j+1]=a[j];
+                if(!st.count(j)) ok=false; 
+                j--;
+	        }
+	        a[j+1]=key;
+		}
+		cout<<(ok?"YES":"NO")<<endl;
+	}
 	return 0;
 }
 

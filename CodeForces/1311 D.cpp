@@ -50,29 +50,46 @@ typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
-const int INF = 0x3f3f3f3f;
+const ll INF = 0x3f3f3f3f3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-struct BIT{
-	ll bit[100010];
-	void edit(int pos,ll val){
-		for(int i=pos;i<=200000;i+=lowbit(i)) bit[i]+=val;
-	}
-	ll query(int pos){
-		ll res=0;
-		for(int i=pos;i;i-=lowbit(i)) res+=bit[i];
-		return res;
-	}
-	ll getsum(int l,int r){
-		return query(r)-query(l-1);
-	}
-}b1;
+struct node{
+	int a,b,c;
+};
+vector<int> v[11010];
+vector<node> ans;
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	cout<<(sizeof b1)<<endl;
+	for(int i=1;i<=11000;i++){
+		for(int j=1;j<=sqrt(i);j++){
+			if(i%j==0) {
+				if(i!=j*j) v[i].push_back(j);
+				v[i].push_back(i/j);
+			}
+		}
+		for(int j=0;j<v[i].size();j++){
+			for(int k=0;k<v[v[i][j]].size();k++){
+				ans.push_back(node{v[v[i][j]][k],v[i][j],i});
+			}
+		}
+	}
+	int T;cin>>T;while(T--){
+		ll a,b,c;cin>>a>>b>>c;
+		node res;
+		ll mi=INF;
+		for(int i=0;i<ans.size();i++){
+			ll tmp=abs(ans[i].a-a)+abs(ans[i].b-b)+abs(ans[i].c-c);
+			if(tmp<mi){
+				mi=tmp;
+				res=ans[i];
+			}
+		}
+		cout<<mi<<endl;
+		cout<<res.a<<" "<<res.b<<" "<<res.c<<endl;
+	}
 	return 0;
 }
 

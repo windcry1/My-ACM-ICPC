@@ -53,26 +53,27 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-struct BIT{
-	ll bit[100010];
-	void edit(int pos,ll val){
-		for(int i=pos;i<=200000;i+=lowbit(i)) bit[i]+=val;
-	}
-	ll query(int pos){
-		ll res=0;
-		for(int i=pos;i;i-=lowbit(i)) res+=bit[i];
-		return res;
-	}
-	ll getsum(int l,int r){
-		return query(r)-query(l-1);
-	}
-}b1;
+char s[200010];
+int pre[200010][26];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	cout<<(sizeof b1)<<endl;
+	int T;cin>>T;while(T--){
+		int n,m;cin>>n>>m>>(s+1);
+		ll res[26]={0};
+		for(int i=1;i<=n;i++)
+			for(int j=0;j<26;j++)
+				pre[i][j]=pre[i-1][j]+(j+'a'==s[i]);
+		for(int i=0;i<26;i++) res[i]=pre[n][i];
+		for(int i=1,p;i<=m;i++) {
+			cin>>p;
+			for(int j=0;j<26;j++)
+				res[j]+=pre[p][j];
+		}
+		for(int i=0;i<26;i++) cout<<res[i]<<" ";cout<<endl;
+	}
 	return 0;
 }
 
