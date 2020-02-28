@@ -54,23 +54,33 @@ const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
 struct node{
-	int a,b;
-	bool operator <(const node &x)const{
-		return b<x.a;
+	int l,r;
+	bool operator <(const node &a) const{
+		return r<a.l;
 	}
-}a[100010];
+};
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
+	int n;cin>>n;
 	set<node> st;
-	for(int i=1,a,b;i<=5;i++){
-		cin>>a>>b;
-		st.insert(node{a,b});
+	for(int i=0;i<n;i++){
+		char op;cin>>op;
+		if(op=='A'){
+			int l,r,res=0;cin>>l>>r;
+			node t=node{l,r};
+			auto i=st.find(t);
+			while(i!=st.end()){
+				++res; st.erase(i);
+				i=st.find(t);
+			}
+			st.insert(t);
+			cout<<res<<endl;
+		}
+		else cout<<st.size()<<endl;
 	}
-	auto tmp=st.find(node{1,3});
-	cout<<tmp->a<<" "<<tmp->b<<endl;
 	return 0;
 }
 

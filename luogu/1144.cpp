@@ -51,26 +51,56 @@ typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
-const int mod = 1e9+7;
+const int mod = 100003;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
 struct node{
-	int a,b;
-	bool operator <(const node &x)const{
-		return b<x.a;
+	int to,next;
+}edge[4000010];
+int head[1000010],tot,n,m;
+inline void add_edge(int u,int v){
+	edge[++tot].to=v;
+	edge[tot].next=head[u];
+	head[u]=tot;
+}
+bool vis[1000010];
+int dis[1000010];
+int res[1000010];
+void bfs(int x){
+	memset(vis,0,sizeof vis);
+	memset(dis,INF,sizeof dis);
+	dis[x]=0;
+	vis[x]=1;
+	res[x]=1;
+	queue<pii> q;
+	q.emplace(x,0);
+	while(!q.empty()){
+		pii t=q.front();q.pop();
+		for(int i=head[t.first];i;i=edge[i].next){
+			int to=edge[i].to;
+			if(!vis[to]){
+				q.emplace(to,t.second+1);
+				vis[to]=1;
+				dis[to]=t.second+1;
+				res[to]=(res[to]+res[t.first])%mod;
+				continue;
+			}
+			if(dis[to]==t.second+1) res[to]=(res[t.first]+res[to])%mod;
+		}
 	}
-}a[100010];
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	set<node> st;
-	for(int i=1,a,b;i<=5;i++){
-		cin>>a>>b;
-		st.insert(node{a,b});
+	cin>>n>>m;
+	for(int i=0;i<m;i++){
+		int u,v;cin>>u>>v;
+		add_edge(u,v);
+		add_edge(v,u);
 	}
-	auto tmp=st.find(node{1,3});
-	cout<<tmp->a<<" "<<tmp->b<<endl;
+	bfs(1);
+	for(int i=1;i<=n;i++) cout<<res[i]<<endl;
 	return 0;
 }
 

@@ -58,19 +58,21 @@ struct node{
 	bool operator <(const node &x)const{
 		return b<x.a;
 	}
-}a[100010];
+};
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	set<node> st;
-	for(int i=1,a,b;i<=5;i++){
-		cin>>a>>b;
-		st.insert(node{a,b});
+	multiset<node> st;
+	int n;cin>>n;
+	int res=0;
+	for(int i=0;i<n;i++){
+		int l,r;cin>>l>>r;
+		res+=st.count(node{l,r});
+		st.insert(node{l,r});
 	}
-	auto tmp=st.find(node{1,3});
-	cout<<tmp->a<<" "<<tmp->b<<endl;
+	cout<<res<<endl;
 	return 0;
 }
 

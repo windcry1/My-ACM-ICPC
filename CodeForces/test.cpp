@@ -53,26 +53,26 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-struct BIT{
-	ll bit[100010];
-	void edit(int pos,ll val){
-		for(int i=pos;i<=200000;i+=lowbit(i)) bit[i]+=val;
-	}
-	ll query(int pos){
-		ll res=0;
-		for(int i=pos;i;i-=lowbit(i)) res+=bit[i];
-		return res;
-	}
-	ll getsum(int l,int r){
-		return query(r)-query(l-1);
-	}
-}b1;
+int cnt=0;
+int gcd(int a,int b){
+	++cnt;
+	return (a%b?gcd(b,a%b):a);
+} 
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	cout<<(sizeof b1)<<endl;
+	gcd(12,8);
+	cout<<cnt<<endl;
+	cnt=0;
+	for(int i=14142;i;i--){
+		++cnt;
+		if(31415%i==0 and 14142%i==0){
+			cout<<cnt<<endl;
+			return 0;
+		}
+	}
 	return 0;
 }
 
