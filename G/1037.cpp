@@ -20,18 +20,18 @@ void createlist(seqlist *l){
 		insert(l,t);
 	}
 }
-void move(seqlist *l,seqlist *res){
+void mergelist(seqlist *l1,seqlist *l2,seqlist *res){
 	initlist(res);
-	int item;scanf("%d",&item);
-	if(item<=0 || item >=l->length){
-		printf("error!");
-		exit(0);
-	}
-	for(int i=item;i<l->length;i++){
-		insert(res,l->data[i]);
-	}
-	for(int i=0;i<item;i++){
-		insert(res,l->data[i]);
+	for(int i=0;i<l1->length;i++) insert(res,l1->data[i]);
+	for(int i=0;i<l2->length;i++){
+		int ok=0;
+		for(int j=0;j<l1->length;j++){
+			if(l1->data[j]==l2->data[i]){
+				ok=1;
+				break;
+			}
+		}
+		if(ok==0) insert(res,l2->data[i]);
 	}
 }
 void print(seqlist *l){
@@ -39,11 +39,14 @@ void print(seqlist *l){
 		printf("%d ",l->data[i]);
 }
 int main(){
-	seqlist *l=(seqlist *)malloc(sizeof (seqlist));
-	initlist(l);
-	createlist(l);
+	seqlist *l1=(seqlist *)malloc(sizeof (seqlist));
+	initlist(l1);
+	createlist(l1);
+	seqlist *l2=(seqlist *)malloc(sizeof (seqlist));
+	initlist(l2);
+	createlist(l2);
 	seqlist *res=(seqlist *)malloc(sizeof (seqlist));
-	move(l,res);
+	mergelist(l1,l2,res);
 	print(res);
 	return 0;
 }

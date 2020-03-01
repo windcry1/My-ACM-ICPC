@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #define maxn 1010
 typedef struct Seqlist{
-	int data[maxn];
+	char data[maxn];
 	int length;
 }seqlist;
 void initlist(seqlist *l){
@@ -14,36 +14,27 @@ void insert(seqlist *l,int data){
 }
 void createlist(seqlist *l){
 	int n;
-	scanf("%d",&n);
+	scanf("%d",&n);getchar();
 	for(int i=0;i<n;i++){
-		int t;scanf("%d",&t);
+		char t=getchar();
 		insert(l,t);
 	}
 }
-void move(seqlist *l,seqlist *res){
+void reverselist(seqlist *l,seqlist *res){
 	initlist(res);
-	int item;scanf("%d",&item);
-	if(item<=0 || item >=l->length){
-		printf("error!");
-		exit(0);
-	}
-	for(int i=item;i<l->length;i++){
-		insert(res,l->data[i]);
-	}
-	for(int i=0;i<item;i++){
-		insert(res,l->data[i]);
-	}
+	int i=l->length-1;
+	while(i>=0) insert(res,l->data[i--]);
 }
 void print(seqlist *l){
 	for(int i=0;i<l->length;i++)
-		printf("%d ",l->data[i]);
+		printf("%c ",l->data[i]);
 }
 int main(){
 	seqlist *l=(seqlist *)malloc(sizeof (seqlist));
 	initlist(l);
 	createlist(l);
 	seqlist *res=(seqlist *)malloc(sizeof (seqlist));
-	move(l,res);
+	reverselist(l,res);
 	print(res);
 	return 0;
 }

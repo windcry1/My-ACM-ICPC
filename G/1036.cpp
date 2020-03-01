@@ -20,19 +20,24 @@ void createlist(seqlist *l){
 		insert(l,t);
 	}
 }
-void move(seqlist *l,seqlist *res){
-	initlist(res);
-	int item;scanf("%d",&item);
-	if(item<=0 || item >=l->length){
-		printf("error!");
-		exit(0);
+void findmain(seqlist *l){
+	int cnt[maxn]={0};
+	for(int i=0;i<l->length;i++){
+		for(int j=0;j<l->length;j++){
+			if(l->data[i]==l->data[j]){
+				cnt[i]++;
+			}
+		}
 	}
-	for(int i=item;i<l->length;i++){
-		insert(res,l->data[i]);
+	int ok=0;
+	for(int i=0;i<l->length;i++){
+		if(cnt[i]>l->length/2){
+			printf("%d",l->data[i]);
+			ok=1;
+			break;
+		}
 	}
-	for(int i=0;i<item;i++){
-		insert(res,l->data[i]);
-	}
+	if(ok==0) printf("-1");
 }
 void print(seqlist *l){
 	for(int i=0;i<l->length;i++)
@@ -42,8 +47,6 @@ int main(){
 	seqlist *l=(seqlist *)malloc(sizeof (seqlist));
 	initlist(l);
 	createlist(l);
-	seqlist *res=(seqlist *)malloc(sizeof (seqlist));
-	move(l,res);
-	print(res);
+	findmain(l);
 	return 0;
 }
