@@ -35,7 +35,6 @@
 #define ALL(x) x.begin(),x.end()
 #define MP(x,y) make_pair(x,y)
 #define ll long long
-#define int long long
 #define ull unsigned long long
 #ifdef WindCry1
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
@@ -55,26 +54,41 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-int a[200010];
-map<int,int> mp;
-signed main(){
+
+int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	int n;cin>>n;
-	mp[0]=1;
-	int last=1,sum=0,res=0;
-	for(int i=2;i<=n+1;i++) cin>>a[i];
-	for(int i=2;i<=n+1;i++){
-		sum+=a[i];
-		int tmp=mp[sum];
-		mp[sum]=i;
-		if(!tmp or tmp+1-last<=0) continue;
-		res+=(tmp+1-last)*(n-i+2);
-		last=tmp+1; 
-	}
-	cout<<n*(n+1)/2-res<<endl;
+	//int T;cin>>T;while(T--){
+	//	ll n;cin>>n;
+	//	ll m=n%3LL;
+		set<int> st;
+		vector<int> v[3];
+		st.insert(0);st.insert(1);st.insert(2);st.insert(3);
+		v[0].push_back(1);v[1].push_back(2);v[2].push_back(3);
+		for(int i=4;i<=256;i++){
+			if(!st.count(i)){
+				for(int j=1;j<=256;j++){
+					if(!st.count(j) and !st.count(i^j)){
+						vector<int> tmp;
+						tmp.push_back(i);tmp.push_back(j);tmp.push_back(i^j);
+						sort(ALL(tmp));
+						v[0].push_back(tmp[0]);
+						v[1].push_back(tmp[1]);
+						v[2].push_back(tmp[2]);
+						st.insert(i);st.insert(j);st.insert(i^j);
+						break;
+					}
+				}
+			}
+		}
+		for(int i=0;i<=2;i++){
+			for(auto j:v[i]) cout<<j<<" ";
+			cout<<endl<<endl;
+		}
+	//} 
 	return 0;
 }
+
 
