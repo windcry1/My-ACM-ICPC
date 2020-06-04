@@ -54,15 +54,32 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int a[100010],b[100010];
+struct node{
+	int pos,seat;
+	bool operator <(const node &a) const{
+		return pos<a.pos or (pos==a.pos and seat<a.seat);
+	}
+}t[200010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	//freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	const double pi = acos(-1.0);
-	double t;cin>>t;
-	cout<<sin(t*pi/180)<<endl; 
+	int T;cin>>T;while(T--){
+		int n;cin>>n;
+		for(int i=1;i<=n;i++) cin>>a[i]>>b[i],t[2*i-1].pos=a[i],t[2*i-1].seat=1,t[2*i].pos=b[i],t[2*i].seat=-1;
+		sort(t+1,t+2*n+1);
+		int res=-1,now=0,cnt=2*n;
+		for(int i=1;i<=2*n;i++){
+			now+=t[i].seat;
+			res=max(res,now);
+			if(i!=2*n and t[i].pos==t[i+1].pos){
+				cnt--;
+			}
+		}
+		cout<<cnt<<" "<<res<<endl;
+	}
 	return 0;
 }
 

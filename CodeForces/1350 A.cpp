@@ -54,15 +54,24 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+ll judge(ll n){
+	for(ll i=2;i*i<=n;i++)
+		if(n%i==0) return i;
+	return n;
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	//freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	const double pi = acos(-1.0);
-	double t;cin>>t;
-	cout<<sin(t*pi/180)<<endl; 
+	int T;cin>>T;while(T--){
+		ll n,k;cin>>n>>k;
+		if(n%2==0) {
+			cout<<n+2*k<<endl;
+			continue;
+		}
+		cout<<n+judge(n)+2*(k-1)<<endl;
+	}
 	return 0;
 }
 

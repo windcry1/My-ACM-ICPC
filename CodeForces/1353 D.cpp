@@ -54,15 +54,35 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int a[200010],cnt;
+struct node{
+	int l,r;
+	bool operator <(const node &a) const{
+		return r-l<a.r-a.l or (r-l==a.r-a.l and l>a.l);
+	}
+};
+void f(int l,int r){
+	priority_queue<node> q;
+	q.push(node{l,r});
+	while(!q.empty()){
+		auto t=q.top();
+		q.pop();
+		a[(t.l+t.r)/2]=++cnt;
+		if(t.l<=(t.l+t.r)/2-1) q.push(node{t.l,(t.l+t.r)/2-1});
+		if((t.l+t.r)/2+1<=t.r) q.push(node{(t.l+t.r)/2+1,t.r});
+	}
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	//freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	const double pi = acos(-1.0);
-	double t;cin>>t;
-	cout<<sin(t*pi/180)<<endl; 
+	int T;cin>>T;while(T--){
+		cnt=0;
+		int n;cin>>n;
+		f(0,n-1);
+		for(int i=0;i<n;i++) cout<<a[i]<<" ";cout<<endl;
+	}
 	return 0;
 }
 

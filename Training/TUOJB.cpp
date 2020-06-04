@@ -54,15 +54,28 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int pos[100010],f[100010],l[100010],cnt=1;
+void insert(int p,int data){
+	for(int i=cnt;i>p;i--) l[i]=l[i-1];
+	l[p]=data;
+	++cnt;
+}
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	//freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	const double pi = acos(-1.0);
-	double t;cin>>t;
-	cout<<sin(t*pi/180)<<endl; 
+	int n,L;cin>>n>>L;
+	for(int i=1;i<=n;i++) cin>>pos[i];
+	for(int i=1;i<=n;i++) cin>>f[i];
+	for(int i=1;i<=n;i++) pos[i]=(f[i]?L-pos[i]:pos[i]);
+	auto p=1;
+	for(int i=1;i<=n;i++) {
+		if(f[i]) l[cnt++]=pos[i];
+		else insert(p,pos[i]),p=cnt-1;
+	}
+	for(int i=1;i<=n;i++) cout<<l[i]<<" ";
+	cout<<endl;
 	return 0;
 }
 

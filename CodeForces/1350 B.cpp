@@ -35,6 +35,7 @@
 #define ALL(x) x.begin(),x.end()
 #define MP(x,y) make_pair(x,y)
 #define ll long long
+#define int long long
 #define ull unsigned long long
 #ifdef WindCry1
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
@@ -54,15 +55,36 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
-int main(){
+int a[100010],dp[100010];
+vector<int> divide(int n){
+	vector<int> res;
+	if(n!=1) res.push_back(1);
+	for(int i=1;i*i<=n;i++){
+		if(n%i==0){
+			res.push_back(i);
+			if(n!=i*i) res.push_back(n/i);
+		}
+	}
+	return res;
+}
+signed main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	//freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	const double pi = acos(-1.0);
-	double t;cin>>t;
-	cout<<sin(t*pi/180)<<endl; 
+	int T;cin>>T;while(T--){
+		int n;cin>>n;for(int i=1;i<=n;i++) cin>>a[i],dp[i]=1;
+		for(int i=1;i<=n;i++){
+			auto tmp=divide(i);
+			int mx=0;
+			for(auto j:tmp) {
+				if(a[j]<a[i])
+				mx=max(mx,dp[j]);
+			}
+			dp[i]=mx+1;
+		}
+		cout<<*max_element(dp+1,dp+1+n)<<endl;
+	}
 	return 0;
 }
 

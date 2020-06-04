@@ -35,6 +35,7 @@
 #define ALL(x) x.begin(),x.end()
 #define MP(x,y) make_pair(x,y)
 #define ll long long
+#define int long long
 #define ull unsigned long long
 #ifdef WindCry1
 #define DEBUG(x) cout<<#x<<" : "<<x<<endl;
@@ -51,18 +52,20 @@ typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
 typedef pair<double,double> pdd;
 const double eps = 1e-8;
-const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
+const ll INF = 0x3f3f3f3f3f3f3f3f;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
-int main(){
+int a[100010];
+signed main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	//freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	const double pi = acos(-1.0);
-	double t;cin>>t;
-	cout<<sin(t*pi/180)<<endl; 
+	int n;cin>>n;for(int i=1;i<=n;i++) cin>>a[i];
+	int gcd=__gcd(a[1],a[2]);
+	for(int i=3;i<=n;i++)
+		gcd=__gcd(gcd,a[i]);
+	cout<<gcd<<endl; 
 	return 0;
 }
 

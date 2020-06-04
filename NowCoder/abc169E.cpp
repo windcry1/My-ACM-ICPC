@@ -54,15 +54,21 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+ll a[200010],b[200010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	//freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	const double pi = acos(-1.0);
-	double t;cin>>t;
-	cout<<sin(t*pi/180)<<endl; 
+	int n;cin>>n;
+	for(int i=0;i<n;i++) cin>>a[i]>>b[i];
+	sort(a,a+n),sort(b,b+n);
+	if(n&1){
+		cout<<b[n/2]-a[n/2]+1<<endl;
+	}
+	else{
+		cout<<b[(n-1)/2]+b[(n+1)/2]-a[(n-1)/2]-a[(n+1)/2]+1<<endl;
+	}
 	return 0;
 }
 

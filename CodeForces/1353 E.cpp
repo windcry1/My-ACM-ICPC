@@ -54,15 +54,32 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+bool a[1000010];
+int dp[1000010],pre[1000010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
-	//freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
+	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	const double pi = acos(-1.0);
-	double t;cin>>t;
-	cout<<sin(t*pi/180)<<endl; 
+	int T;cin>>T;while(T--){
+		int n,k,sum=0;cin>>n>>k;
+		int res=INF;
+		string s;cin>>s;
+		for(int i=1;i<=n;i++) a[i]=(s[i-1]=='1'),pre[i]=pre[i-1]+a[i];
+		for(int i=1;i<=n;i++) cout<<a[i]<<" ";cout<<endl;
+		for(int i=1;i<=n;i++) cout<<pre[i]<<" ";cout<<endl;
+		for(int i=1;i<=k;i++){
+			int cnt=0,mx=-1;
+			for(int j=i;j<=n;j+=k){
+				if(a[j]) ++cnt;
+				dp[j]=abs(pre[j]-cnt);
+				mx=max(mx,dp[j]);
+			}
+			res=min(res,mx);
+		}
+		for(int i=1;i<=n;i++) cout<<dp[i]<<" ";cout<<endl;
+		cout<<res<<endl;
+	}
 	return 0;
 }
 
