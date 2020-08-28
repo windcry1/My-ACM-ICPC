@@ -54,15 +54,24 @@ const double eps = 1e-8;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9+7;
 const int dir[4][2]={-1,0,1,0,0,-1,0,1};
-
+int a[100010];
 int main(){
 	ios::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #ifdef WindCry1
 	freopen("C:/Users/LENOVO/Desktop/in.txt","r",stdin);
 #endif
-	double d;
-	d=1,d+5,d++;
-	cout<<d<<endl; 
+	int T;for(cin>>T;T--;){
+		int n;cin>>n;
+		int pos=n;
+		for(int i=1;i<=n;i++) cin>>a[i];
+		for(int i=1;i<=n;i++){
+			if(a[i]!=1){
+				pos=i;
+				break;
+			}
+		}
+		cout<<(pos&1?"First":"Second")<<endl;
+	}
 	return 0;
 }
 
