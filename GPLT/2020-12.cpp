@@ -3,7 +3,7 @@
 using namespace std;
 bool a[510][510];
 bool vis[510];
-int dp[510],du[510],n,m,A,B;
+int dp[510],n,m,A,B;
 int pos=-1;
 int dfs(int x){
 	if(x==B) return dp[x]=1;
@@ -22,7 +22,6 @@ signed main(){
 	cin>>n>>m;
 	for(int i=0;i<m;i++){
 		int s1,s2;cin>>s1>>s2;
-		du[s1]++;
 		a[s1][s2]=true;
 	}
 	memset(dp,-1,sizeof dp);

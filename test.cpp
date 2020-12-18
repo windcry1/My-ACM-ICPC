@@ -1,45 +1,4 @@
-/*************************************************************************
->>> Author: WindCry1
->>> Mail: lanceyu120@gmail.com
->>> Website: https://windcry1.com
->>> Date: 12/30/2019 11:03:37 PM
-*************************************************************************/
-//#pragma GCC optimize(3)
-//#pragma GCC diagnostic error "-std=c++11"
-#include <cstring>
-#include <cmath>
-#include <cstdio>
-#include <cctype>
-#include <cstdlib>
-#include <ctime>
-#include <vector>
-#include <iostream>
-#include <string>
-#include <queue>
-#include <set>
-#include <map>
-#include <algorithm>
-#include <complex>
-#include <stack>
-#include <bitset>
-#include <iomanip>
-#include <list>
-#include <sstream>
-#include <fstream>
-#if __cplusplus >= 201103L
-#include <unordered_map>
-#include <unordered_set>
-#endif
-#define endl '\n'
-#define ALL(x) x.begin(),x.end()
-#define ll long long
-#define ull unsigned long long
-#ifdef WindCry1
-#define DEBUG(x) cout<<#x<<" : "<<x<<endl;
-#endif
-#define lowbit(x) x&(-x)
-#define ls u<<1
-#define rs u<<1|1
+#include<bits/stdc++.h>
 using namespace std;
 template<typename T> inline T MIN(const T &a,const T &b) {return a<b?a:b;}
 template<typename T> inline T MAX(const T &a,const T &b) {return a>b?a:b;}
@@ -69,6 +28,7 @@ int main(){
 	for(int i=0;i<(1<<30);i++)
 		if(!((i<<1)&i)) res++;
 	cout<<res<<endl;
+	cout<<format("{}\n",res)<<endl;
 	return 0;
 }
 
